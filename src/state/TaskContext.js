@@ -4,7 +4,10 @@ import { mockTasks } from "./mockTasks";
 
 const TaskContext = React.createContext({
   tasks: [],
-  addTask: () => [],
+  addTask: (task) => {},
+  removeTask: (taskKey) => {},
+  toggleResolved: (taskKey) => {},
+  modifyTask: (task) => {},
 });
 
 export const TaskContextProvider = (props) => {

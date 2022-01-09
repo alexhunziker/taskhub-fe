@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import Button from "../components/Button";
-import ListEntry from "../components/ListEntry";
+import Button from "../../components/Button";
+import ListEntry from "../../components/ListEntry";
 import EditTask from "./EditTask";
-import { Priority } from "../state/constants";
-import TaskContext from "../state/TaskContext";
+import { Priority } from "../../state/constants";
+import TaskContext from "../../state/TaskContext";
 
 const Row = styled.div`
   display: flex;

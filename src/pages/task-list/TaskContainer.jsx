@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Card from "../components/Card";
+import Card from "../../components/Card";
 import TaskEntry from "./TaskEntry";
 
 const ContainerTitle = styled.h2`

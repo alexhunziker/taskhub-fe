@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 
-import Input from "../components/Input";
-import InputWrapper from "../components/InputWrapper";
-import Button from "../components/Button";
-import AdvancedTaskFields from "./task-creation/AdvancedTaskFields";
-import TaskContext from "../state/TaskContext";
+import Input from "../../components/Input";
+import InputWrapper from "../../components/InputWrapper";
+import Button from "../../components/Button";
+import AdvancedTaskFields from "../task-creation/AdvancedTaskFields";
+import TaskContext from "../../state/TaskContext";
 
 const StyledButton = styled(Button)`
   margin-top: 15px;

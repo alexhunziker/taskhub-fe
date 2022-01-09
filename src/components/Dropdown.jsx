@@ -16,7 +16,7 @@ const Dropdown = ({ entries, onChange, value }) => {
   return (
     <StyledSelect onChange={onChange} value={value}>
       {entries.map((entry) => (
-        <option value={entry} key={entry}>{entry}</option>
+        <option key={entry || "unknown"} value={entry}>{entry}</option>
       ))}
     </StyledSelect>
   );

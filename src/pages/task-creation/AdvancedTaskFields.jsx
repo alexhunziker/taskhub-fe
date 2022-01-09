@@ -36,6 +36,7 @@ const AdvancedTaskFields = ({category, setCategory, due, setDue, priority, setPr
       </InputWrapper>
       <InputWrapper name={"priority"} description={"Priority"}>
         <Dropdown
+          key={priority}
           entries={Priorities}
           value={priority}
           onChange={(event) =>
