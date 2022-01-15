@@ -32,11 +32,13 @@ const TaskCreator = () => {
   const [priority, setPriority] = useState(Priority.MEDIUM);
   const [due, setDue] = useState(undefined);
   const [valid, setValid] = useState(false);
+  const [touched, setTouched] = useState(false);
 
   const submit = () => {
     const newTask = { title, category, due, priority };
 
     if (!valid) {
+      setTouched(true)
       return;
     }
 
@@ -46,11 +48,13 @@ const TaskCreator = () => {
     setCategory(Category.UNDEFINED);
     setPriority(Priority.MEDIUM);
     setValid(false)
+    setTouched(false)
   };
 
   const handleTitleChanged = (event) => {
     setTitle(event.target.value)
     setValid(!!event.target.value)
+    setTouched(true)
   }
 
   return (
@@ -60,6 +64,7 @@ const TaskCreator = () => {
           <Input
             value={title}
             name={"title"}
+            validationError={!valid && touched}
             onChange={(event) => handleTitleChanged(event)}
           />
         </InputWrapper>

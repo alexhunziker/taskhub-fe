@@ -10,10 +10,15 @@ const StyledInput = styled.input`
   :focus {
     border: 2px solid #009999;
   }
+
+  ${({ validationError }) => validationError && `
+    border: 2px solid #AA6666;
+    background-color: #FFDDDD;
+  `}
 `
 
-const Input = ({onChange, value}) => {
-  return <StyledInput onChange={onChange} value={value}/>
+const Input = ({onChange, value, validationError}) => {
+  return <StyledInput onChange={onChange} value={value} validationError={validationError}/>
 }
 
 export default Input

@@ -63,7 +63,7 @@ const TaskEntry = ({ task }) => {
   const currentDate = new Date();
   const overdue =
     task.due && typeof task.due.getTime === "function"
-      ? currentDate > task.due.getTime()
+      ? currentDate > task.due.getTime() && !task.done
       : false;
 
   const [editMode, setEditMode] = useState(false);
@@ -72,7 +72,7 @@ const TaskEntry = ({ task }) => {
   const formattedDate = formatDate(task.due)
 
   return (
-    <ListEntry overdue={overdue} editMode={editMode}>
+    <ListEntry overdue={overdue} editMode={editMode} done={task.done}>
       {!editMode ? (
         <Row>
           <Checkbox type="checkbox" onClick={() => toggleResolved(task.key)} />

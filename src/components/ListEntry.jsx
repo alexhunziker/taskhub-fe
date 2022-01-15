@@ -14,10 +14,14 @@ const StyledEntry = styled.div`
     background: #DFFFF5;
     padding-bottom: 0.6rem;
   `}
+
+  ${({ done }) => done && `
+    color: grey;
+  `}
 `;
 
-const ListEntry = ({overdue, editMode, children}) => {
-  return <StyledEntry overdue={overdue} editMode={editMode}>{children}</StyledEntry>;
+const ListEntry = ({overdue, editMode, children, done}) => {
+  return <StyledEntry overdue={overdue} editMode={editMode} done={done}>{children}</StyledEntry>;
 };
 
 export default ListEntry;
