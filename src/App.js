@@ -1,13 +1,15 @@
 import React from "react";
-import "./App.css";
 import TaskList from "./pages/task-list/TaskList";
-import {TaskContextProvider} from "./state/TaskContext";
+import { TaskContextProvider } from "./state/TaskContext";
+import { DatabaseContextPorvider } from "./state/DatabaseContext";
 
 function App() {
   return (
-    <TaskContextProvider>
-      <TaskList />
-    </TaskContextProvider>
+    <DatabaseContextPorvider>
+      <TaskContextProvider>
+        <TaskList />
+      </TaskContextProvider>
+    </DatabaseContextPorvider>
   );
 }
 
