@@ -1,52 +1,63 @@
-import React from 'react';
-import styled from 'styled-components'
+import React, { useContext } from "react";
+import styled from "styled-components";
+import DatabaseContext from "../state/DatabaseContext";
 
 const StyledHeader = styled.header`
   height: 3.5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: #007799;
-  
-  nav {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  li {
-    padding: 0;
-    margin: 0 2rem;
-  }
-  
+  padding-left: 20px;
+  padding-right: 20px;
+  gap: 20px;
+
   a {
     text-decoration: none;
     color: white;
     font-weight: bold;
   }
-  
+
   a:hover,
   a:active,
   a.active {
-    color: #0055FF;
+    color: #00DDBB;
   }
 `;
 
-const Header = props => {
+const PageTitle = styled.div`
+  flex-grow: 1;
+`
+
+const ErrorList = styled.div`
+  background-color: #EE8888;
+  color: white;
+  padding: 10px 20px 10px;
+
+  li {
+    list-style-type: none;
+  }
+`
+
+const Header = (props) => {
+  const { successIndicator, errorList } = useContext(DatabaseContext);
+
   return (
-    <StyledHeader>
-      <a href="/">TaskHub</a>
-    </StyledHeader>
+    <>
+      <StyledHeader>
+        <PageTitle><a href="/tasks">TaskHub {">>"} Tasks</a></PageTitle>
+        {successIndicator && <div>✔️</div>}
+        <a href="/categories">Categories</a>
+        <a href="/">Logout</a>
+      </StyledHeader>
+      {errorList.length > 0 && (
+        <ErrorList>
+          {errorList.map((error) => (
+            <li>{error}</li>
+          ))}
+        </ErrorList>
+      )}
+    </>
   );
 };
 
