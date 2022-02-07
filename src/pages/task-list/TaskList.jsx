@@ -1,26 +1,26 @@
 import Header from "../Header";
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import TaskContainer from "./TaskContainer";
 import TaskCreator from "../task-creation/TaskCreator";
 import Card from "../../components/Card";
 import { Categories } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
+import DatabaseContext from "../../state/DatabaseContext";
 import { useTaskActions } from "../../api/taskActions";
-import Button from "../../components/Button";
 
 const TaskList = () => {
   const taskCategories = Categories;
 
   const { tasks, setTasks }= useContext(TaskContext);
+  const { ready } = useContext(DatabaseContext);
   const { listenToTaskList } = useTaskActions();
 
-  const loadTasks = () => listenToTaskList(setTasks);
+  useEffect(() => ready && listenToTaskList(setTasks), [ready])
 
   return (
     <Card>
       <Header></Header>
       <TaskCreator></TaskCreator>
-      <Button onClick={() => loadTasks()}>LoadTasks</Button>
         {
           taskCategories.map((taskCategory) => (
             <TaskContainer

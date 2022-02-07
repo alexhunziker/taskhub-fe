@@ -1,5 +1,5 @@
 import { set, ref, onValue, getDatabase } from "firebase/database";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DatabaseContext from "../state/DatabaseContext";
 
 export const useTaskActions = () => {
@@ -9,7 +9,6 @@ export const useTaskActions = () => {
   const listenToTaskList = (successAction) => {
     if (!ready) {
       addError("Getting taks failed: Database not ready.");
-      setTimeout(() => listenToTaskList(), 10000);
       return;
     }
 
