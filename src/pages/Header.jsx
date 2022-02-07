@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import DatabaseContext from "../state/DatabaseContext";
 
@@ -45,9 +46,9 @@ const Header = (props) => {
   return (
     <>
       <StyledHeader>
-        <PageTitle><a href="/tasks">TaskHub {">>"} Tasks</a></PageTitle>
+        <PageTitle><a href="/tasks">📝 TaskHub {">>"} Tasks</a></PageTitle>
         {successIndicator && <div>✔️</div>}
-        <a href="/categories">Categories</a>
+        <Link to="/categories">Categories</Link>
         <a href="/">Logout</a>
       </StyledHeader>
       {errorList.length > 0 && (

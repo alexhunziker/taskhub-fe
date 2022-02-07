@@ -69,7 +69,7 @@ const TaskCreator = () => {
           />
         </InputWrapper>
         <StyledButton onClick={() => setAdvanced(!advanced)}>
-          {!advanced ? "Show More" : "Show Less"}
+          {!advanced ? "➕" : "➖"}
         </StyledButton>
         <StyledButton onClick={() => submit()} primary>
           Create
