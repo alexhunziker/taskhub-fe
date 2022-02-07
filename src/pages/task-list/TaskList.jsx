@@ -15,6 +15,7 @@ const TaskList = () => {
   const { ready } = useContext(DatabaseContext);
   const { listenToTaskList } = useTaskActions();
 
+  // eslint-disable-next-line
   useEffect(() => ready && listenToTaskList(setTasks), [ready])
 
   return (

@@ -1,5 +1,5 @@
 import { set, ref, onValue, getDatabase } from "firebase/database";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import DatabaseContext from "../state/DatabaseContext";
 
 export const useTaskActions = () => {
