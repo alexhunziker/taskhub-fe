@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import AuthenticationContext from "../state/AuthenticationContext";
 import DatabaseContext from "../state/DatabaseContext";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
 const StyledHeader = styled.header`
   height: 3.5rem;
@@ -40,16 +43,17 @@ const ErrorList = styled.div`
   }
 `
 
-const Header = (props) => {
+const Header = ({page}) => {
   const { successIndicator, errorList } = useContext(DatabaseContext);
+  const { displayName, isLoggedIn } = useContext(AuthenticationContext);
 
   return (
     <>
       <StyledHeader>
-        <PageTitle><a href="/tasks">📝 TaskHub {">>"} Tasks</a></PageTitle>
+        <PageTitle><a href="/tasks">📝 TaskHub {">>"} { page }</a></PageTitle>
         {successIndicator && <div>✔️</div>}
-        <Link to="/categories">Categories</Link>
-        <a href="/">Logout</a>
+        {isLoggedIn() && <Link to="/categories">Categories</Link>}
+        {isLoggedIn() && <a onClick={() => firebase.auth().signOut()}>Logout ({displayName})</a>}
       </StyledHeader>
       {errorList.length > 0 && (
         <ErrorList>

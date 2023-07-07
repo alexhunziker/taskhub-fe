@@ -6,7 +6,7 @@ export const useTaskActions = () => {
   const { addError, indicateSuccess, ready } = useContext(DatabaseContext);
   const [alreadyRetrieved, setAlreadyRetrieved] = useState(false);
 
-  const listenToTaskList = (successAction) => {
+  const listenToTaskList = (successAction, uid) => {
     if (!ready) {
       addError("Getting taks failed: Database not ready.");
       return;
@@ -19,7 +19,8 @@ export const useTaskActions = () => {
     setAlreadyRetrieved(true);
 
     const database = getDatabase();
-    const taskListRef = ref(database, "tasks/test-user");
+    console.log("uid", uid)
+    const taskListRef = ref(database, "tasks/" + uid);
 
     onValue(
       taskListRef,
@@ -34,7 +35,7 @@ export const useTaskActions = () => {
     );
   };
 
-  const updateTask = async (task) => {
+  const updateTask = async (task, uid) => {
     if (!ready) {
       addError("Task update/creation failed: Database not ready.");
       return;
@@ -48,7 +49,7 @@ export const useTaskActions = () => {
     );
 
     const database = getDatabase();
-    set(ref(database, "tasks/test-user/" + taskToPersist.key), taskToPersist)
+    set(ref(database, "tasks/" + "uid" + "/" + taskToPersist.key), taskToPersist)
       .then(indicateSuccess())
       .catch((error) => addError("Task update/creation failed: " + error));
   };

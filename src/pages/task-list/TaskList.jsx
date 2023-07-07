@@ -7,6 +7,8 @@ import { Categories } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
 import DatabaseContext from "../../state/DatabaseContext";
 import { useTaskActions } from "../../api/taskActions";
+import AuthenticationContext from "../../state/AuthenticationContext";
+import { Navigate } from "react-router-dom";
 
 const TaskList = () => {
   const taskCategories = Categories;
@@ -15,12 +17,18 @@ const TaskList = () => {
   const { ready } = useContext(DatabaseContext);
   const { listenToTaskList } = useTaskActions();
 
+  const { isLoggedIn, uid } = useContext(AuthenticationContext);
+
+    if (!isLoggedIn()) {
+        return <Navigate to="/login" replace />
+    }
+
   // eslint-disable-next-line
-  useEffect(() => ready && listenToTaskList(setTasks), [ready])
+  useEffect(() => ready && listenToTaskList(setTasks, uid), [ready, uid])
 
   return (
     <Card>
-      <Header></Header>
+      <Header page={"Tasks"}></Header>
       <TaskCreator></TaskCreator>
         {
           taskCategories.map((taskCategory) => (
