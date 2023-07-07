@@ -8,6 +8,7 @@ import { DatabaseContextPorvider } from "./state/DatabaseContext";
 import { AuthenticationContextPorvider } from "./state/AuthenticationContext";
 
 function App() {
+
   return (
     <DatabaseContextPorvider>
       <AuthenticationContextPorvider>

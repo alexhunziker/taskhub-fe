@@ -16,10 +16,14 @@ export const DatabaseContextPorvider = ({children}) => {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const database = initializeFirebase();
-    console.log("Initialize Firebase... done", database)
-    if (database) {
-      setReady(true);
+    try {
+      const database = initializeFirebase();
+      console.log("Initialize Firebase... done")
+      if (database) {
+        setReady(true);
+      }
+    } catch (error) {
+      console.error("initializind database failed", error)
     }
   }, [])
 

@@ -56,8 +56,6 @@ export const TaskContextProvider = (props) => {
     modifyTask,
   };
 
-  console.log(value)
-
   return (
     <TaskContext.Provider value={value}>{props.children}</TaskContext.Provider>
   );
