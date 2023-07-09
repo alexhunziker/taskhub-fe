@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
 import Header from '../Header';
 import Card from '../../components/Card';
 import DatabaseContext from '../../state/DatabaseContext';
