@@ -15,12 +15,9 @@ function App() {
       <TaskContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<TaskList />}>
-              
-              <Route intex element={<h1>foo</h1>} />
-            </Route>
             <Route path="/categories" element={<CategoryManager />} />
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<TaskList />} />
           </Routes>
         </BrowserRouter>
       </TaskContextProvider>
