@@ -5,6 +5,7 @@ import AuthenticationContext from "../state/AuthenticationContext";
 import DatabaseContext from "../state/DatabaseContext";
 import 'firebase/compat/auth';
 import { getAuth, signOut } from "firebase/auth";
+import { Routes } from "./routes";
 
 const StyledHeader = styled.header`
   height: 3.5rem;
@@ -59,8 +60,8 @@ const Header = ({page}) => {
       <StyledHeader>
         <PageTitle><a href="/tasks">📝 TaskHub {">>"} { page }</a></PageTitle>
         {successIndicator && <div>✔️</div>}
-        {isLoggedIn() && <Link to="/categories">Categories</Link>}
-        {isLoggedIn() && <a href="/" onClick={handleLogout}>Logout ({displayName})</a>}
+        {isLoggedIn() && <Link to={Routes.CATEGORIES}>Categories</Link>}
+        {isLoggedIn() && <a href={Routes.TASKLIST} onClick={handleLogout}>Logout ({displayName})</a>}
       </StyledHeader>
       {errorList.length > 0 && (
         <ErrorList>

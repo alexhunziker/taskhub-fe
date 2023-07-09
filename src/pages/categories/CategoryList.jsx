@@ -1,16 +1,15 @@
 import React from "react";
 import CategoryListEntry from "./CategoryListEntry";
 
-const CategoryList = ({categories, handleEdit, handleDelete}) => {
+const CategoryList = ({categories, handleEdit}) => {
 
-  return categories.map(({name, id, rules}) => (
+  return categories.map(({name, key, rules}) => (
     <CategoryListEntry 
     name={name} 
-    id={id} 
-    key={id}
+    id={key} 
+    key={key}
     rules={rules} 
-    handleEdit={handleEdit} 
-    handleDelete={handleDelete} />
+    handleEdit={handleEdit} />
   ))
 
 }

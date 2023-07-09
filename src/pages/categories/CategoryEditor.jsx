@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import Input from "../../components/Input";
 import InputWrapper from "../../components/InputWrapper";
 import CategoryRule from "./CategoryRule";
+import CategoryContext from "../../state/CategoryContext";
 
 const Row = styled.div`
   display: flex;
@@ -21,11 +22,13 @@ const RuleArea = styled.div`
   overflow-wrap: break-word;
 `;
 
-const CategoryEditor = ({category, handleSafe}) => {
+const CategoryEditor = ({category}) => {
 
   const [name, setName] = useState(category.name)
   const [rules, setRules] = useState(category.rules)
   const [currentRule, setCurrentRule] = useState('')
+
+  const { saveCategory } = useContext(CategoryContext)
 
   useEffect(() => {
     setName(category.name)
@@ -41,12 +44,14 @@ const CategoryEditor = ({category, handleSafe}) => {
     setRules(rules.filter(rule => rule !== ruleToRemove))
   }, [rules, setRules])
 
+  const assembledCategory = {...category, name, rules}
+
   return <Card>
     <Row>
       <InputWrapper description={"Name:"}>
-        <Input value={name}/>
+        <Input value={name} onChange={event => setName(event.target.value)}/>
       </InputWrapper>
-      <StyledButton onClick={() => handleSafe(name, category.id, rules)} primary>Save</StyledButton>
+      <StyledButton onClick={() => saveCategory(assembledCategory)} primary>Save</StyledButton>
     </Row>
     <Row>
       <InputWrapper description={"Rules (Regex capable)"}>

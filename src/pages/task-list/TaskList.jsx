@@ -26,7 +26,7 @@ const TaskList = () => {
     useEffect(() => ready && listenToTaskList(setTasks, uid), [ready, uid])
 
     if (!isLoggedIn()) {
-        return <Navigate to="/login" replace />
+        return <Navigate to="taskhub-fe/login" replace />
     }
 
   return (

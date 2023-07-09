@@ -16,28 +16,18 @@ const Login = () => {
         return <Navigate to="/" replace />
     }
 
-    if (!ready) {
-        <Card>
-            <Header page={"Login"} />
-        </Card>
-    }
-
-    const auth = getAuth();
-
     const loginConfig = {
         signInFlow: 'popup',
         signInOptions: [
             EmailAuthProvider.PROVIDER_ID,
         ],
-        signInSuccessUrl: '/',
+        signInSuccessUrl: '/taskhub-fe/',
     }
-
-    console.log("auth", auth);
 
     return (
         <Card>
             <Header page={"Login"} />
-            <StyledFirebaseAuth uiConfig={loginConfig} firebaseAuth={auth} />
+            {ready && <StyledFirebaseAuth uiConfig={loginConfig} firebaseAuth={getAuth()} />}
         </Card>
     );
 }
