@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AuthenticationContext from "../state/AuthenticationContext";
 import DatabaseContext from "../state/DatabaseContext";
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { getAuth, signOut } from "firebase/auth";
 
@@ -53,7 +52,7 @@ const Header = ({page}) => {
   const handleLogout = useCallback(() => {
     signOut(auth)
       .catch((e) => addError("Sign out failed: ", e))
-  }, [auth])
+  }, [auth, addError])
 
   return (
     <>
@@ -61,7 +60,7 @@ const Header = ({page}) => {
         <PageTitle><a href="/tasks">📝 TaskHub {">>"} { page }</a></PageTitle>
         {successIndicator && <div>✔️</div>}
         {isLoggedIn() && <Link to="/categories">Categories</Link>}
-        {isLoggedIn() && <a onClick={handleLogout}>Logout ({displayName})</a>}
+        {isLoggedIn() && <a href="/" onClick={handleLogout}>Logout ({displayName})</a>}
       </StyledHeader>
       {errorList.length > 0 && (
         <ErrorList>
