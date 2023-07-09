@@ -1,4 +1,4 @@
-import { set, ref, onValue, getDatabase } from "firebase/database";
+import { set, ref, getDatabase, get } from "firebase/database";
 import { useContext, useState } from "react";
 import DatabaseContext from "../state/DatabaseContext";
 
@@ -19,16 +19,18 @@ export const useTaskActions = () => {
     setAlreadyRetrieved(true);
 
     const database = getDatabase();
-    console.log("uid", uid)
     const taskListRef = ref(database, "tasks/" + uid);
 
-    onValue(
-      taskListRef,
-      (snapshot) => {
+    get(taskListRef)
+      .then((snapshot) => {
+        if (!snapshot.exists()) {
+          console.warn("No tasks were obtained by firebase.");
+          return;
+        } 
+
         const tasklist = Object.values(snapshot.val());
         const tasklist_1 = tasklist.map(task => ({...task, due: task.due && new Date(task.due)}))
         successAction(tasklist_1);
-        console.log(tasklist_1, "retrieved");
         indicateSuccess()
       },
       (error) => addError("Getting tasks failed: " + error)
@@ -42,20 +44,31 @@ export const useTaskActions = () => {
     }
 
     const taskToPersist = { ...task, due: task.due && task.due.getTime() };
-    console.log(taskToPersist);
 
     Object.keys(taskToPersist).forEach(
       (key) => taskToPersist[key] === undefined && delete taskToPersist[key]
     );
 
     const database = getDatabase();
-    set(ref(database, "tasks/" + "uid" + "/" + taskToPersist.key), taskToPersist)
+    const objectReference = ref(database, `tasks/${uid}/${taskToPersist.key}`);
+    set(objectReference, taskToPersist)
       .then(indicateSuccess())
       .catch((error) => addError("Task update/creation failed: " + error));
   };
 
+  const removeTask = async (taskKey, uid) => {
+
+    const database = getDatabase();
+    const objectReference = ref(database, `tasks/${uid}/${taskKey}`);
+    set(objectReference, null)
+      .then(indicateSuccess())
+      .catch((error) => addError("Task removal failed: " + error));
+  }
+
   return {
     listenToTaskList,
     updateTask,
+    removeTask,
   };
+
 };

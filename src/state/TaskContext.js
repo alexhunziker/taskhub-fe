@@ -1,6 +1,5 @@
 import React, {useContext, useState} from "react";
 import { v4 as uuidv4 } from "uuid";
-import { mockTasks } from "./mockTasks";
 import { useTaskActions} from "../api/taskActions"
 import AuthenticationContext from "./AuthenticationContext";
 
@@ -15,8 +14,8 @@ const TaskContext = React.createContext({
 export const TaskContextProvider = (props) => {
 
   const { uid } = useContext(AuthenticationContext)  
-  const [tasks, setTasks] = useState(mockTasks);
-  const {updateTask} = useTaskActions()
+  const [tasks, setTasks] = useState([]);
+  const {updateTask, removeTask: deleteTask} = useTaskActions()
 
   const addTask = (newTask) => {
     const newTaskWithKey = { ...newTask, key: uuidv4() };
@@ -24,8 +23,10 @@ export const TaskContextProvider = (props) => {
     updateTask(newTaskWithKey, uid);
   }
     
-  const removeTask = (taskKey) =>
+  const removeTask = (taskKey) => {
     setTasks(tasks.filter((task) => task.key !== taskKey));
+    deleteTask(taskKey, uid)
+  }
 
   const toggleResolved = (taskKey) => {
     const taskToUpdate = tasks.find((task) => task.key === taskKey)
