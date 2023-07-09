@@ -75,11 +75,11 @@ const TaskEntry = ({ task }) => {
     <ListEntry overdue={overdue} editMode={editMode} done={task.done}>
       {!editMode ? (
         <Row>
-          <Checkbox type="checkbox" onClick={() => toggleResolved(task.key)} />
+          <Checkbox type="checkbox" onClick={() => toggleResolved(task.key)} checked={task.done} />
           <Importance priority={task.priority}>!</Importance>
           <StyledDescription done={task.done}>{task.title} {formattedDate && `(${formattedDate})`}</StyledDescription>
-          <Button onClick={() => toggleEditMode()}>Edit</Button>
-          <Button onClick={() => removeTask(task.key)}>Delete</Button>
+          <Button onClick={() => toggleEditMode()}>🖊️</Button>
+          <Button onClick={() => removeTask(task.key)}>🗑️</Button>
         </Row>
       ) : (
         <EditTask task={task} toggleEditMode={toggleEditMode} />

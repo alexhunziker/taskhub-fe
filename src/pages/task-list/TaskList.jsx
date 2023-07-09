@@ -19,12 +19,12 @@ const TaskList = () => {
 
   const { isLoggedIn, uid } = useContext(AuthenticationContext);
 
+    // eslint-disable-next-line
+    useEffect(() => ready && listenToTaskList(setTasks, uid), [ready, uid])
+
     if (!isLoggedIn()) {
         return <Navigate to="/login" replace />
     }
-
-  // eslint-disable-next-line
-  useEffect(() => ready && listenToTaskList(setTasks, uid), [ready, uid])
 
   return (
     <Card>
