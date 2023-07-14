@@ -8,10 +8,13 @@ import TaskContext from "../../state/TaskContext";
 import DatabaseContext from "../../state/DatabaseContext";
 import { useTaskActions } from "../../api/taskActions";
 import AuthenticationContext from "../../state/AuthenticationContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 const TaskList = () => {
   const taskCategories = Categories;
+
+  const location = useLocation();
+  console.log(location)
 
   const { tasks, setTasks }= useContext(TaskContext);
   const { ready } = useContext(DatabaseContext);
@@ -23,7 +26,7 @@ const TaskList = () => {
     useEffect(() => ready && listenToTaskList(setTasks, uid), [ready, uid])
 
     if (!isLoggedIn()) {
-        return <Navigate to="/login" replace />
+        return <Navigate to="taskhub-fe/login" replace />
     }
 
   return (

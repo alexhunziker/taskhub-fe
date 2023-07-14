@@ -1,25 +1,11 @@
 import React, { useContext } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
 import Header from '../Header';
 import Card from '../../components/Card';
 import DatabaseContext from '../../state/DatabaseContext';
 import { Navigate } from 'react-router-dom';
 import AuthenticationContext from '../../state/AuthenticationContext';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBh36cGPXJH-cyb2giOsJet7VDEKZ3MVsU",
-  authDomain: "my-task-hub.firebaseapp.com",
-  databaseURL: "https://my-task-hub-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "my-task-hub",
-  storageBucket: "my-task-hub.appspot.com",
-  messagingSenderId: "941408350272",
-  appId: "1:941408350272:web:a0f5bfc5afbcbbcb3defa5",
-  measurementId: "G-485HGNY5X9"
-};
-
-firebase.initializeApp(firebaseConfig);
+import { getAuth, EmailAuthProvider } from 'firebase/auth';
 
 const Login = () => {
 
@@ -30,26 +16,18 @@ const Login = () => {
         return <Navigate to="/" replace />
     }
 
-    if (!ready) {
-        <Card>
-            <Header page={"Login"} />
-        </Card>
-    }
-
     const loginConfig = {
         signInFlow: 'popup',
         signInOptions: [
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            EmailAuthProvider.PROVIDER_ID,
         ],
-        signInSuccessUrl: '/',
+        signInSuccessUrl: '/taskhub-fe/',
     }
-
-    console.log("auth", firebase.auth);
 
     return (
         <Card>
             <Header page={"Login"} />
-            <StyledFirebaseAuth uiConfig={loginConfig} firebaseAuth={firebase.auth()} />
+            {ready && <StyledFirebaseAuth uiConfig={loginConfig} firebaseAuth={getAuth()} />}
         </Card>
     );
 }

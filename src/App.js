@@ -6,6 +6,7 @@ import Login from "./pages/auth/Login";
 import { TaskContextProvider } from "./state/TaskContext";
 import { DatabaseContextPorvider } from "./state/DatabaseContext";
 import { AuthenticationContextPorvider } from "./state/AuthenticationContext";
+import { CategoryContextProvicer } from "./state/CategoryContext";
 
 function App() {
 
@@ -13,16 +14,15 @@ function App() {
     <DatabaseContextPorvider>
       <AuthenticationContextPorvider>
       <TaskContextProvider>
+      <CategoryContextProvicer>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<TaskList />}>
-              
-              <Route intex element={<h1>foo</h1>} />
-            </Route>
-            <Route path="/categories" element={<CategoryManager />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/taskhub-fe/categories" element={<CategoryManager />} />
+            <Route path="/taskhub-fe/login" element={<Login />} />
+            <Route path="*" element={<TaskList />} />
           </Routes>
         </BrowserRouter>
+      </CategoryContextProvicer>
       </TaskContextProvider>
       </AuthenticationContextPorvider>
     </DatabaseContextPorvider>
