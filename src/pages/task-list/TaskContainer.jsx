@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Card from "../../components/Card";
 import TaskEntry from "./TaskEntry";
+import OrderDropdown from "./OrderDropdown";
 
 const ContainerTitle = styled.h2`
   font-size: 14pt;
@@ -9,10 +10,23 @@ const ContainerTitle = styled.h2`
 
 const TaskContainer = ({taskCategory, tasks}) => {
 
+  tasks.sort((a,b) => {
+    if (a.done && !b.done) {
+      return 1;
+    } if (b.done && !a.done) {
+      return -1;
+    }
+
+    return a.due - b.due;  
+  });
+
     return (
     <Card>
       <>
-        <ContainerTitle>{taskCategory || 'Uncategorized'}</ContainerTitle>
+        <ContainerTitle>
+          {taskCategory || 'Uncategorized'} {' '}
+          <OrderDropdown />
+        </ContainerTitle>
         {
           tasks.length > 0 
           ? tasks.map(task => <TaskEntry task={task} key={task.key}/>)
