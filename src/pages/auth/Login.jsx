@@ -6,6 +6,7 @@ import DatabaseContext from '../../state/DatabaseContext';
 import { Navigate } from 'react-router-dom';
 import AuthenticationContext from '../../state/AuthenticationContext';
 import { getAuth, EmailAuthProvider } from 'firebase/auth';
+import { Routes } from '../routes';
 
 const Login = () => {
 
@@ -13,7 +14,7 @@ const Login = () => {
     const { isLoggedIn } = useContext(AuthenticationContext);
 
     if (isLoggedIn()) {
-        return <Navigate to="/" replace />
+        return <Navigate to={Routes.TASKLIST} replace />
     }
 
     const loginConfig = {
@@ -21,7 +22,7 @@ const Login = () => {
         signInOptions: [
             EmailAuthProvider.PROVIDER_ID,
         ],
-        signInSuccessUrl: '/taskhub-fe/',
+        signInSuccessUrl: Routes.TASKLIST,
     }
 
     return (
