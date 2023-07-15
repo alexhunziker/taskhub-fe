@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Card from "../../components/Card";
 import TaskEntry from "./TaskEntry";
 import OrderDropdown from "./OrderDropdown";
+import { SortOrder, SortOrderFunctions } from "./sortOrder";
 
 const ContainerTitle = styled.h2`
   font-size: 14pt;
 `
 
 const TaskContainer = ({taskCategory, tasks}) => {
+
+  const [sortOrder, setSortOrder] = useState(SortOrder.DUE_UNKNOWN_LAST);
+  const sortOrderFunction = SortOrderFunctions[sortOrder];
 
   tasks.sort((a,b) => {
     if (a.done && !b.done) {
@@ -17,7 +21,7 @@ const TaskContainer = ({taskCategory, tasks}) => {
       return -1;
     }
 
-    return a.due - b.due;  
+    return sortOrderFunction(a, b);  
   });
 
     return (
@@ -25,7 +29,7 @@ const TaskContainer = ({taskCategory, tasks}) => {
       <>
         <ContainerTitle>
           {taskCategory || 'Uncategorized'} {' '}
-          <OrderDropdown />
+          <OrderDropdown setSortOrder={setSortOrder} sortOrder={sortOrder} />
         </ContainerTitle>
         {
           tasks.length > 0 
