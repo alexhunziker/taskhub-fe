@@ -42,7 +42,6 @@ export const AuthenticationContextPorvider = ({children}) => {
       isLoggedIn,
     }
     
-    
     return (
       <AuthenticationContext.Provider value={value}>{children}</AuthenticationContext.Provider>
     );

@@ -28,8 +28,8 @@ const TaskContainer = ({taskCategory, tasks}) => {
     <Card>
       <>
         <ContainerTitle>
-          {taskCategory || 'Uncategorized'} {' '}
-          <OrderDropdown setSortOrder={setSortOrder} sortOrder={sortOrder} />
+          <OrderDropdown setSortOrder={setSortOrder} sortOrder={sortOrder} /> {' '}
+          {taskCategory || 'Uncategorized'}
         </ContainerTitle>
         {
           tasks.length > 0 

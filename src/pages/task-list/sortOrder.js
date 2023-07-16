@@ -7,6 +7,12 @@ export const SortOrder = {
   PRIORITY: "Priority",
 }
 
+const alphabetical = (a, b) => {
+    if (a.title > b.title) return 1;
+    if (a.title < b.title) return -1;
+    return 0;
+}
+
 const unknownFirst = (a, b) => {
     if (!a.due && !b.due) return a.title > b.title;
     if (!a.due) return -1;
@@ -30,7 +36,7 @@ const priority = (a, b) => {
 }
 
 export const SortOrderFunctions = {
-    [SortOrder.ALPHABETICAL]: (a, b) => a.title > b.title,
+    [SortOrder.ALPHABETICAL]: alphabetical,
     [SortOrder.DUE_UNKNOWN_FIRST]: unknownFirst,
     [SortOrder.DUE_UNKNOWN_LAST]: unknownLast,
     [SortOrder.PRIORITY]: priority,
