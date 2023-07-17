@@ -30,7 +30,9 @@ export const TaskContextProvider = (props) => {
 
   const toggleResolved = (taskKey) => {
     const taskToUpdate = tasks.find((task) => task.key === taskKey)
-    taskToUpdate["done"] = !taskToUpdate.done;
+    taskToUpdate.done = !taskToUpdate.done;
+
+    taskToUpdate.closedOn = taskToUpdate.done ? new Date() : null;
 
     setTasks(
       tasks.map((task) =>

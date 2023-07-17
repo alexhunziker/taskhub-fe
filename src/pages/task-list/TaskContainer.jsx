@@ -3,26 +3,27 @@ import styled from "styled-components";
 import Card from "../../components/Card";
 import TaskEntry from "./TaskEntry";
 import OrderDropdown from "./OrderDropdown";
-import { SortOrder, SortOrderFunctions } from "./sortOrder";
+import { SortOrder, SortOrderFunctions, compareClosedOn } from "./sortOrder";
 
 const ContainerTitle = styled.h2`
   font-size: 14pt;
 `
 
+const ClosedTaskToggle = styled.div`
+  margin-top: 10px;
+  color: #007799;
+`
+
 const TaskContainer = ({taskCategory, tasks}) => {
 
   const [sortOrder, setSortOrder] = useState(SortOrder.DUE_UNKNOWN_LAST);
+  const [showClosed, setShowClosed] = useState(false);
   const sortOrderFunction = SortOrderFunctions[sortOrder];
 
-  tasks.sort((a,b) => {
-    if (a.done && !b.done) {
-      return 1;
-    } if (b.done && !a.done) {
-      return -1;
-    }
+  const openTasks = tasks.filter(t => !t.done).sort((a, b) => sortOrderFunction(a, b))
+  const closedTasks = tasks.filter(t => t.done).sort((a, b) => compareClosedOn(a, b))
 
-    return sortOrderFunction(a, b);  
-  });
+  const toggleClosedText = showClosed ? '- Hide closed tasks' : '+ Show closed tasks'
 
     return (
     <Card>
@@ -32,10 +33,16 @@ const TaskContainer = ({taskCategory, tasks}) => {
           {taskCategory || 'Uncategorized'}
         </ContainerTitle>
         {
-          tasks.length > 0 
-          ? tasks.map(task => <TaskEntry task={task} key={task.key}/>)
+          openTasks.length > 0 
+          ? openTasks.map(task => <TaskEntry task={task} key={task.key}/>)
           : 'Yay, no tasks'
         }
+        { closedTasks.length > 0 && <>
+          <ClosedTaskToggle onClick={() => setShowClosed(!showClosed)}>
+            {toggleClosedText}
+          </ClosedTaskToggle>
+          { showClosed && closedTasks.map(task => <TaskEntry task={task} key={task.key}/>)}
+        </>}
       </>
     </Card>)
 }

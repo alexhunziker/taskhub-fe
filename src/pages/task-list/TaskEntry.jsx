@@ -69,7 +69,7 @@ const TaskEntry = ({ task }) => {
   const [editMode, setEditMode] = useState(false);
   const toggleEditMode = () => setEditMode(!editMode);
 
-  const formattedDate = formatDate(task.due)
+  const formattedDate = task.done ? formatDate(task.closedOn) : formatDate(task.due)
 
   return (
     <ListEntry overdue={overdue} editMode={editMode} done={task.done}>

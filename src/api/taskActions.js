@@ -29,7 +29,11 @@ export const useTaskActions = () => {
         } 
 
         const tasklist = Object.values(snapshot.val());
-        const tasklist_1 = tasklist.map(task => ({...task, due: task.due && new Date(task.due)}))
+        const tasklist_1 = tasklist.map(task => ({
+          ...task, 
+          due: task.due && new Date(task.due), 
+          closedOn: task.closedOn && new Date(task.closedOn)}))
+          
         successAction(tasklist_1);
         indicateSuccess()
       },
@@ -43,7 +47,10 @@ export const useTaskActions = () => {
       return;
     }
 
-    const taskToPersist = { ...task, due: task.due && task.due.getTime() };
+    const taskToPersist = { 
+      ...task, 
+      due: task.due && task.due.getTime(), 
+      closedOn: task.closedOn && task.closedOn.getTime() };
 
     Object.keys(taskToPersist).forEach(
       (key) => taskToPersist[key] === undefined && delete taskToPersist[key]

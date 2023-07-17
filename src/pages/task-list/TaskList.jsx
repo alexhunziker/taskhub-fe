@@ -8,13 +8,10 @@ import TaskContext from "../../state/TaskContext";
 import DatabaseContext from "../../state/DatabaseContext";
 import { useTaskActions } from "../../api/taskActions";
 import AuthenticationContext from "../../state/AuthenticationContext";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const TaskList = () => {
   const taskCategories = Categories;
-
-  const location = useLocation();
-  console.log(location)
 
   const { tasks, setTasks }= useContext(TaskContext);
   const { ready } = useContext(DatabaseContext);
