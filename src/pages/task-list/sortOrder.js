@@ -39,7 +39,7 @@ export const compareClosedOn = (a, b) => {
     if (a.closedOn === b.closedOn) return 0;
     if (!a.closedOn) return 1;
     if (!b.closedOn) return -1;
-    return a.closedOn - b.closedOn;
+    return b.closedOn - a.closedOn;
 }
 
 export const SortOrderFunctions = {
