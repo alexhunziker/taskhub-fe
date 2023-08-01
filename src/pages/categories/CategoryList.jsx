@@ -1,15 +1,18 @@
 import React from "react";
 import CategoryListEntry from "./CategoryListEntry";
 
-const CategoryList = ({categories, handleEdit}) => {
+const CategoryList = ({categories, handleEdit, editedCategory}) => {
 
-  return categories.map(({name, key, rules}) => (
+  const sortedCategories = categories?.sort((cat1, cat2) => cat1.name.toUpperCase() > cat2.name.toUpperCase());
+
+  return sortedCategories.map(({name, key, rules}) => (
     <CategoryListEntry 
     name={name} 
     id={key} 
     key={key}
     rules={rules} 
-    handleEdit={handleEdit} />
+    handleEdit={handleEdit}
+    isEdited={editedCategory.key === key} />
   ))
 
 }

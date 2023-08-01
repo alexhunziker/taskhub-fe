@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import CategoryEditor from "./CategoryEditor";
 import Button from "../../components/Button";
@@ -21,21 +21,29 @@ const StyledButton = styled(Button)`
 `;
 
 const CategoryManager = () => {
-
   const { categories } = useContext(CategoryContext);
-  const [editedCategory, setEditedCategory] = useState({rules: []})
+  const [editedCategory, setEditedCategory] = useState({ rules: [] });
 
   const handleEdit = (key) => {
-    setEditedCategory(categories.find(entry => entry.key === key))
-  }
+    setEditedCategory(categories.find((entry) => entry.key === key));
+  };
+
+  const resetEditedCategory = useCallback(() => {
+    setEditedCategory({ rules: [] });
+  }, [setEditedCategory]);
 
   return (
     <Overlay>
       <h2>Categories</h2>
-      <CategoryEditor category={editedCategory}/>
-      <CategoryList 
-        categories={categories} 
-        handleEdit={handleEdit} />
+      <CategoryEditor
+        category={editedCategory}
+        resetEditedCategory={resetEditedCategory}
+      />
+      <CategoryList
+        categories={categories}
+        handleEdit={handleEdit}
+        editedCategory={editedCategory}
+      />
       <Link to={Routes.TASKLIST}>
         <StyledButton primary>Close</StyledButton>
       </Link>

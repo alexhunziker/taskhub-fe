@@ -26,7 +26,7 @@ export const CategoryContextProvicer = (props) => {
       return;
     }
 
-    const newCategoryWithKey = { ...newCategory, key: uuidv4() };
+    const newCategoryWithKey = { key: uuidv4(), ...newCategory };
     const filteredCategories = categories.filter((category) => category.key !== newCategoryWithKey.key);
     setCategories([...filteredCategories, newCategoryWithKey]);
     updateCategory(newCategoryWithKey, uid);
