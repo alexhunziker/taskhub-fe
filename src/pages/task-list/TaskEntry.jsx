@@ -58,7 +58,7 @@ const formatDate = (date) => {
 }
 
 const TaskEntry = ({ task }) => {
-  const { removeTask, toggleResolved } = useContext(TaskContext);
+  const { toggleResolved } = useContext(TaskContext);
 
   const currentDate = new Date();
   const overdue =
@@ -79,7 +79,6 @@ const TaskEntry = ({ task }) => {
           <Importance priority={task.priority}>!</Importance>
           <StyledDescription done={task.done}>{task.title} {formattedDate && `(${formattedDate})`}</StyledDescription>
           <Button onClick={() => toggleEditMode()}>🖊️</Button>
-          <Button onClick={() => removeTask(task.key)}>🗑️</Button>
         </Row>
       ) : (
         <EditTask task={task} toggleEditMode={toggleEditMode} />

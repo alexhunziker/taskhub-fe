@@ -14,37 +14,47 @@ const ClosedTaskToggle = styled.div`
   color: #007799;
 `
 
-const TaskContainer = ({taskCategory, tasks}) => {
+const CategoryCard = styled(Card)`
+  width: 400px;
+  flex-grow: 1;
+`
 
+const TaskContainer = ({ taskCategory, tasks }) => {
   const [sortOrder, setSortOrder] = useState(SortOrder.DUE_UNKNOWN_LAST);
   const [showClosed, setShowClosed] = useState(false);
   const sortOrderFunction = SortOrderFunctions[sortOrder];
 
-  const openTasks = tasks.filter(t => !t.done).sort((a, b) => sortOrderFunction(a, b))
-  const closedTasks = tasks.filter(t => t.done).sort((a, b) => compareClosedOn(a, b))
+  const openTasks = tasks
+    .filter(t => !t.done)
+    .sort((a, b) => sortOrderFunction(a, b));
+  const closedTasks = tasks
+    .filter(t => t.done)
+    .sort((a, b) => compareClosedOn(a, b));
 
-  const toggleClosedText = showClosed ? '- Hide closed tasks' : '+ Show closed tasks'
+  const toggleClosedText = showClosed
+    ? "- Hide closed tasks"
+    : "+ Show closed tasks";
 
-    return (
-    <Card>
-      <>
-        <ContainerTitle>
-          <OrderDropdown setSortOrder={setSortOrder} sortOrder={sortOrder} /> {' '}
-          {taskCategory || 'Uncategorized'}
-        </ContainerTitle>
-        {
-          openTasks.length > 0 
-          ? openTasks.map(task => <TaskEntry task={task} key={task.key}/>)
-          : 'Yay, no tasks'
-        }
-        { closedTasks.length > 0 && <>
+  return (
+    <CategoryCard>
+      <ContainerTitle>
+        <OrderDropdown setSortOrder={setSortOrder} sortOrder={sortOrder} />{" "}
+        {taskCategory || "Uncategorized"}
+      </ContainerTitle>
+      {openTasks.length > 0
+        ? openTasks.map((task) => <TaskEntry task={task} key={task.key} />)
+        : "Yay, no tasks"}
+      {closedTasks.length > 0 && (
+        <>
           <ClosedTaskToggle onClick={() => setShowClosed(!showClosed)}>
             {toggleClosedText}
           </ClosedTaskToggle>
-          { showClosed && closedTasks.map(task => <TaskEntry task={task} key={task.key}/>)}
-        </>}
-      </>
-    </Card>)
-}
+          {showClosed &&
+            closedTasks.map((task) => <TaskEntry task={task} key={task.key} />)}
+        </>
+      )}
+    </CategoryCard>
+  );
+};
 
 export default TaskContainer;

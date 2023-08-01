@@ -13,6 +13,12 @@ import {
 } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
 
+const TaskCreatorCard = styled(Card)`
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 0px;
+`
+
 const Row = styled.div`
   display: flex;
   gap: 10px;
@@ -58,7 +64,7 @@ const TaskCreator = () => {
   }
 
   return (
-    <Card>
+    <TaskCreatorCard>
       <Row>
         <InputWrapper description={"New Task"}>
           <Input
@@ -87,7 +93,7 @@ const TaskCreator = () => {
           />
         )}
       </Row>
-    </Card>
+    </TaskCreatorCard>
   );
 };
 
