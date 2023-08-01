@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -9,12 +9,13 @@ import InputWrapper from "../../components/InputWrapper";
 import AdvancedTaskFields from "./AdvancedTaskFields";
 import { Priority } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
+import CategoryContext from "../../state/CategoryContext";
 
 const TaskCreatorCard = styled(Card)`
   margin-left: 1rem;
   margin-right: 1rem;
   margin-bottom: 0px;
-`
+`;
 
 const Row = styled.div`
   display: flex;
@@ -37,11 +38,25 @@ const TaskCreator = () => {
   const [valid, setValid] = useState(false);
   const [touched, setTouched] = useState(false);
 
+  const { categories } = useContext(CategoryContext);
+  const categoriesRegex = useMemo(
+    () =>
+      categories
+        .flatMap((category) => {
+          const patterns = category.rules?.map((rule) => new RegExp(rule));
+          return patterns?.map((pattern) => {
+            return { pattern, category: category.key };
+          });
+        })
+        .filter((o) => !!o),
+    [categories]
+  );
+
   const submit = () => {
     const newTask = { title, category, due, priority };
 
     if (!valid) {
-      setTouched(true)
+      setTouched(true);
       return;
     }
 
@@ -50,15 +65,21 @@ const TaskCreator = () => {
     setTitle("");
     setCategory(undefined);
     setPriority(Priority.MEDIUM);
-    setValid(false)
-    setTouched(false)
+    setValid(false);
+    setTouched(false);
   };
 
   const handleTitleChanged = (event) => {
-    setTitle(event.target.value)
-    setValid(!!event.target.value)
-    setTouched(true)
-  }
+    const currentTitle = event.target.value;
+    setTitle(currentTitle);
+    setValid(!!currentTitle);
+    setTouched(true);
+
+    if (category === undefined) {
+      const matchedExpression = categoriesRegex.find(catEx => catEx.pattern.test(currentTitle));
+      setCategory(matchedExpression?.category);
+    }
+  };
 
   return (
     <TaskCreatorCard>
