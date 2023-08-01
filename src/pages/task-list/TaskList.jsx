@@ -3,12 +3,12 @@ import styled from "styled-components";
 import React, { useContext, useEffect } from "react";
 import TaskContainer from "./TaskContainer";
 import TaskCreator from "../task-creation/TaskCreator";
-import { Categories } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
 import DatabaseContext from "../../state/DatabaseContext";
 import { useTaskActions } from "../../api/taskActions";
 import AuthenticationContext from "../../state/AuthenticationContext";
 import { Navigate } from "react-router-dom";
+import CategoryContext from "../../state/CategoryContext";
 
 const CategroyContainer = styled.div`
   display: flex;
@@ -19,7 +19,9 @@ const CategroyContainer = styled.div`
 `;
 
 const TaskList = () => {
-  const taskCategories = Categories;
+  const { categories } = useContext(CategoryContext);
+  const sortedCategories = categories?.sort((cat1, cat2) => cat1.name.toUpperCase() > cat2.name.toUpperCase());
+  const categoriesWithUnknown = [{key: undefined, name: 'Uncategorized'}, ...sortedCategories]
 
   const { tasks, setTasks } = useContext(TaskContext);
   const { ready } = useContext(DatabaseContext);
@@ -39,11 +41,11 @@ const TaskList = () => {
       <Header page={"Tasks"}></Header>
       <TaskCreator></TaskCreator>
       <CategroyContainer>
-        {taskCategories.map((taskCategory) => (
+        {categoriesWithUnknown.map((taskCategory) => (
           <TaskContainer
-            key={taskCategory || "unknown"}
-            taskCategory={taskCategory}
-            tasks={tasks.filter((task) => task.category === taskCategory)}
+            key={taskCategory.key}
+            taskCategory={taskCategory.name}
+            tasks={tasks.filter((task) => task.category === taskCategory.name || task.category === taskCategory.key)}
           />
         ))}
       </CategroyContainer>

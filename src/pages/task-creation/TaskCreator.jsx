@@ -7,10 +7,7 @@ import Input from "../../components/Input";
 import Card from "../../components/Card";
 import InputWrapper from "../../components/InputWrapper";
 import AdvancedTaskFields from "./AdvancedTaskFields";
-import {
-  Category,
-  Priority,
-} from "../../state/constants";
+import { Priority } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
 
 const TaskCreatorCard = styled(Card)`
@@ -34,7 +31,7 @@ const TaskCreator = () => {
   const { addTask } = useContext(TaskContext);
 
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState(Category.UNDEFINED);
+  const [category, setCategory] = useState(undefined);
   const [priority, setPriority] = useState(Priority.MEDIUM);
   const [due, setDue] = useState(undefined);
   const [valid, setValid] = useState(false);
@@ -51,7 +48,7 @@ const TaskCreator = () => {
     addTask(newTask);
 
     setTitle("");
-    setCategory(Category.UNDEFINED);
+    setCategory(undefined);
     setPriority(Priority.MEDIUM);
     setValid(false)
     setTouched(false)
