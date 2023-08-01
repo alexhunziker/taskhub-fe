@@ -17,7 +17,8 @@ export const CategoryContextProvicer = (props) => {
 
   useEffect(() => {
     fetchCategories(setCategories, uid);
-  }, [uid, fetchCategories, setCategories])
+    // eslint-disable-next-line
+  }, [uid])
 
   const saveCategory = (newCategory) => {
     if (!newCategory.name) {

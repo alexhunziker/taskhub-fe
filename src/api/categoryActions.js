@@ -1,11 +1,12 @@
 import { set, ref, getDatabase, get } from "firebase/database";
 import { useContext } from "react";
 import DatabaseContext from "../state/DatabaseContext";
+import { useCallback } from "react";
 
 export const useCategoryActions = () => {
   const { addError, indicateSuccess, ready } = useContext(DatabaseContext);
 
-  const fetchCategories = (successAction, uid) => {
+  const fetchCategories = useCallback((successAction, uid) => {
 
     if (!ready || !uid) {
       console.warn("Firebase not ready.")
@@ -31,7 +32,7 @@ export const useCategoryActions = () => {
         addError("Getting categories failed: " + error)
       });
     
-  };
+  }, [addError, indicateSuccess, ready]);
 
   const updateCategory = async (category, uid) => {
 
