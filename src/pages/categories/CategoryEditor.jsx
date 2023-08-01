@@ -6,6 +6,7 @@ import Input from "../../components/Input";
 import InputWrapper from "../../components/InputWrapper";
 import CategoryRule from "./CategoryRule";
 import CategoryContext from "../../state/CategoryContext";
+import DatabaseContext from "../../state/DatabaseContext";
 
 const Row = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const CategoryEditor = ({ category, resetEditedCategory }) => {
   const [currentRule, setCurrentRule] = useState("");
 
   const { saveCategory } = useContext(CategoryContext);
+  const { addError } = useContext(DatabaseContext);
 
   useEffect(() => {
     setName(category.name || "");
@@ -35,6 +37,13 @@ const CategoryEditor = ({ category, resetEditedCategory }) => {
   }, [category]);
 
   const handleAddRule = useCallback(() => {
+    try {
+      new RegExp(currentRule);
+    } catch {
+      addError("Cannot add rule due to invalid format");
+      return;
+    }
+
     setRules([...rules, currentRule]);
     setCurrentRule("");
   }, [rules, currentRule, setCurrentRule, setRules]);

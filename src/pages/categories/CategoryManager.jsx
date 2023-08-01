@@ -7,6 +7,7 @@ import CategoryList from "./CategoryList";
 import styled from "styled-components";
 import CategoryContext from "../../state/CategoryContext";
 import { Routes } from "../routes";
+import DatabaseContext from "../../state/DatabaseContext";
 
 /* const mockCategories = [
   {name: "Purchase", id:"id1", rules: ["buy*.", "purchase*."]},
@@ -22,6 +23,7 @@ const StyledButton = styled(Button)`
 
 const CategoryManager = () => {
   const { categories } = useContext(CategoryContext);
+  const { errorList } = useContext(DatabaseContext);
   const [editedCategory, setEditedCategory] = useState({ rules: [] });
 
   const handleEdit = (key) => {
@@ -34,6 +36,7 @@ const CategoryManager = () => {
 
   return (
     <Overlay>
+      {errorList && <p>{errorList.join(',')}</p>}
       <h2>Categories</h2>
       <CategoryEditor
         category={editedCategory}
