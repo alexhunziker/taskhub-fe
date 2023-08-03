@@ -23,11 +23,12 @@ const EditTask = ({ task, toggleEditMode }) => {
   const [category, setCategory] = useState(task.category);
   const [due, setDue] = useState(task.due)
   const [priority, setPriority] = useState(task.priority)
+  const [recurring, setRecurring] = useState({mode: task.recurrenceMode, frequency: task.recurrenceFrequency})
 
   const {removeTask, modifyTask} = useContext(TaskContext)
 
   const submit = () => {
-    modifyTask({...task, title, category, due, priority})
+    modifyTask({...task, title, category, due, priority, recurrenceMode: recurring.mode, recurrenceFrequency: recurring.frequency})
     toggleEditMode();
   };
 
@@ -53,6 +54,8 @@ const EditTask = ({ task, toggleEditMode }) => {
         setDue={setDue}
         priority={priority}
         setPriority={setPriority}
+        recurring={recurring}
+        setRecurring={setRecurring}
       />
     </>
   );

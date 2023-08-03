@@ -46,7 +46,7 @@ const CategoryEditor = ({ category, resetEditedCategory }) => {
 
     setRules([...rules, currentRule]);
     setCurrentRule("");
-  }, [rules, currentRule, setCurrentRule, setRules]);
+  }, [rules, currentRule, setCurrentRule, setRules, addError]);
 
   const handleRemove = useCallback(
     (ruleToRemove) => {

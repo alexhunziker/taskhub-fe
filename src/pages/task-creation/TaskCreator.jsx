@@ -35,6 +35,7 @@ const TaskCreator = () => {
   const [category, setCategory] = useState(undefined);
   const [priority, setPriority] = useState(Priority.MEDIUM);
   const [due, setDue] = useState(undefined);
+  const [recurring, setRecurring] = useState({});
   const [valid, setValid] = useState(false);
   const [touched, setTouched] = useState(false);
 
@@ -53,7 +54,14 @@ const TaskCreator = () => {
   );
 
   const submit = () => {
-    const newTask = { title, category, due, priority };
+    const newTask = {
+      title,
+      category,
+      due,
+      priority,
+      recurrenceMode: recurring.mode,
+      recurrenceFrequency: recurring.frequency,
+    };
 
     if (!valid) {
       setTouched(true);
@@ -67,6 +75,7 @@ const TaskCreator = () => {
     setPriority(Priority.MEDIUM);
     setValid(false);
     setTouched(false);
+    setRecurring({});
   };
 
   const handleTitleChanged = (event) => {
@@ -76,7 +85,9 @@ const TaskCreator = () => {
     setTouched(true);
 
     if (category === undefined) {
-      const matchedExpression = categoriesRegex.find(catEx => catEx.pattern.test(currentTitle));
+      const matchedExpression = categoriesRegex.find((catEx) =>
+        catEx.pattern.test(currentTitle)
+      );
       setCategory(matchedExpression?.category);
     }
   };
@@ -108,6 +119,8 @@ const TaskCreator = () => {
             setDue={setDue}
             priority={priority}
             setPriority={setPriority}
+            recurring={recurring}
+            setRecurring={setRecurring}
           />
         )}
       </Row>

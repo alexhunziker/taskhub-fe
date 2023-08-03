@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useTaskActions} from "../api/taskActions"
 import AuthenticationContext from "./AuthenticationContext";
+import { Frequency, RecurrenceMode } from "./constants";
 
 const TaskContext = React.createContext({
   tasks: [],
@@ -40,6 +41,28 @@ export const TaskContextProvider = (props) => {
       )
     );
     updateTask(taskToUpdate, uid)
+
+    const recurrenceMode = taskToUpdate.recurrenceMode;
+    if (recurrenceMode && taskToUpdate.done) {
+
+      const newDueDate = taskToUpdate.recurrenceMode === RecurrenceMode.AFTER_COMPLETE 
+        ? new Date() 
+        : new Date(taskToUpdate.due.getTime());
+
+      const frequency = taskToUpdate.recurrenceFrequency;
+      if (frequency === Frequency.DAILY) {
+        newDueDate.setDate(newDueDate.getDate() + 1);
+      } else if (frequency === Frequency.WEEKLY) {
+        newDueDate.setDate(newDueDate.getDate() + 7);
+      } else if (frequency === Frequency.MONTHLY) {
+        newDueDate.setMonth(newDueDate.getMonth() + 1);
+      } else if (frequency === Frequency.YEARLY) {
+        newDueDate.setFullYear(newDueDate.getFullYear() + 1);
+      }
+
+      const newTask = {...taskToUpdate, due: newDueDate, done: false, closedOn: undefined}
+      addTask(newTask);
+    }
   };
 
   const modifyTask = (updatedTask) => {
