@@ -1,6 +1,6 @@
-import React, {useContext, useState} from "react";
+import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useTaskActions} from "../api/taskActions"
+import { useTaskActions } from "../api/taskActions";
 import AuthenticationContext from "./AuthenticationContext";
 import { Frequency, RecurrenceMode } from "./constants";
 
@@ -10,44 +10,40 @@ const TaskContext = React.createContext({
   removeTask: (taskKey) => {},
   toggleResolved: (taskKey) => {},
   modifyTask: (task) => {},
+  unassignAllTasksFromCategory: (key) => {},
 });
 
 export const TaskContextProvider = (props) => {
-
-  const { uid } = useContext(AuthenticationContext)  
+  const { uid } = useContext(AuthenticationContext);
   const [tasks, setTasks] = useState([]);
-  const {updateTask, removeTask: deleteTask} = useTaskActions()
+  const { updateTask, removeTask: deleteTask } = useTaskActions();
 
   const addTask = (newTask) => {
     const newTaskWithKey = { ...newTask, key: uuidv4() };
     setTasks([...tasks, newTaskWithKey]);
     updateTask(newTaskWithKey, uid);
-  }
-    
+  };
+
   const removeTask = (taskKey) => {
     setTasks(tasks.filter((task) => task.key !== taskKey));
-    deleteTask(taskKey, uid)
-  }
+    deleteTask(taskKey, uid);
+  };
 
   const toggleResolved = (taskKey) => {
-    const taskToUpdate = tasks.find((task) => task.key === taskKey)
+    const taskToUpdate = tasks.find((task) => task.key === taskKey);
     taskToUpdate.done = !taskToUpdate.done;
 
     taskToUpdate.closedOn = taskToUpdate.done ? new Date() : null;
 
-    setTasks(
-      tasks.map((task) =>
-        task.key === taskKey ? taskToUpdate : task
-      )
-    );
-    updateTask(taskToUpdate, uid)
+    setTasks(tasks.map((task) => (task.key === taskKey ? taskToUpdate : task)));
+    updateTask(taskToUpdate, uid);
 
     const recurrenceMode = taskToUpdate.recurrenceMode;
     if (recurrenceMode && taskToUpdate.done) {
-
-      const newDueDate = taskToUpdate.recurrenceMode === RecurrenceMode.AFTER_COMPLETE 
-        ? new Date() 
-        : new Date(taskToUpdate.due.getTime());
+      const newDueDate =
+        taskToUpdate.recurrenceMode === RecurrenceMode.AFTER_COMPLETE
+          ? new Date()
+          : new Date(taskToUpdate.due.getTime());
 
       const frequency = taskToUpdate.recurrenceFrequency;
       if (frequency === Frequency.DAILY) {
@@ -60,7 +56,13 @@ export const TaskContextProvider = (props) => {
         newDueDate.setFullYear(newDueDate.getFullYear() + 1);
       }
 
-      const newTask = {...taskToUpdate, due: newDueDate, done: false, closedOn: undefined}
+      const newTask = {
+        ...taskToUpdate,
+        due: newDueDate,
+        done: false,
+        closedOn: undefined,
+      };
+      
       addTask(newTask);
     }
   };
@@ -69,9 +71,14 @@ export const TaskContextProvider = (props) => {
     setTasks(
       tasks.map((task) => (task.key !== updatedTask.key ? task : updatedTask))
     );
-    updateTask(updatedTask, uid)
-  }
-    
+    updateTask(updatedTask, uid);
+  };
+
+  const unassignAllTasksFromCategory = (key) => {
+    tasks
+      .filter((task) => task.category === key)
+      .forEach((task) => modifyTask({ ...task, category: undefined }));
+  };
 
   const value = {
     tasks,
@@ -80,6 +87,7 @@ export const TaskContextProvider = (props) => {
     removeTask,
     toggleResolved,
     modifyTask,
+    unassignAllTasksFromCategory,
   };
 
   return (
