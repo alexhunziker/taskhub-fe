@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import EditIcon from '@mui/icons-material/Edit';
 import Button from "../../components/Button";
 import ListEntry from "../../components/ListEntry";
 import EditTask from "./EditTask";
@@ -78,7 +79,9 @@ const TaskEntry = ({ task }) => {
           <Checkbox type="checkbox" onChange={() => toggleResolved(task.key)} checked={task.done} />
           <Importance priority={task.priority}>!</Importance>
           <StyledDescription done={task.done}>{task.title} {formattedDate && `(${formattedDate})`}</StyledDescription>
-          <Button onClick={() => toggleEditMode()}>🖊️</Button>
+          <Button onClick={() => toggleEditMode()}>
+            <EditIcon fontSize="small" />
+          </Button>
         </Row>
       ) : (
         <EditTask task={task} toggleEditMode={toggleEditMode} />

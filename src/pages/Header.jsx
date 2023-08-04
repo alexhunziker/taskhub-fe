@@ -1,6 +1,7 @@
 import React, { useCallback, useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import DoneIcon from '@mui/icons-material/Done';
 import AuthenticationContext from "../state/AuthenticationContext";
 import DatabaseContext from "../state/DatabaseContext";
 import 'firebase/compat/auth';
@@ -16,6 +17,7 @@ const StyledHeader = styled.header`
   padding-left: 20px;
   padding-right: 20px;
   gap: 20px;
+  color: white;
 
   a {
     text-decoration: none;
@@ -59,7 +61,7 @@ const Header = ({page}) => {
     <>
       <StyledHeader>
         <PageTitle><a href="/tasks">📝 TaskHub {">>"} { page }</a></PageTitle>
-        {successIndicator && <div>✔️</div>}
+        {successIndicator && <DoneIcon />}
         {isLoggedIn() && <Link to={Routes.CATEGORIES}>Categories</Link>}
         {isLoggedIn() && <a href={Routes.TASKLIST} onClick={handleLogout}>Logout ({displayName})</a>}
       </StyledHeader>

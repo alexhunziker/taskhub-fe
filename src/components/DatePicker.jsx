@@ -10,6 +10,11 @@ const DatePicker = styled(ReactDatePicker)`
   :focus {
     border: 2px solid #007799;
   }
+
+  ${({ validationError }) => validationError && `
+    border: 2px solid #AA6666;
+    background-color: #FFDDDD;
+  `}
 `;
 
 export default DatePicker;

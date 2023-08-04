@@ -80,6 +80,7 @@ const AdvancedTaskFields = ({
           selected={currentDue}
           onChange={(date) => setDue(date)}
           dateFormat="dd.MM.yyyy"
+          validationError={recurring.invalid}
         />
       </InputWrapper>
       <InputWrapper name={"priority"} description={"Priority"}>

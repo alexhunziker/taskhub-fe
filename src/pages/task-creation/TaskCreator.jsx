@@ -7,7 +7,7 @@ import Input from "../../components/Input";
 import Card from "../../components/Card";
 import InputWrapper from "../../components/InputWrapper";
 import AdvancedTaskFields from "./AdvancedTaskFields";
-import { Priority } from "../../state/constants";
+import { Priority, RecurrenceMode } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
 import CategoryContext from "../../state/CategoryContext";
 
@@ -37,7 +37,8 @@ const TaskCreator = () => {
   const [priority, setPriority] = useState(Priority.MEDIUM);
   const [due, setDue] = useState(undefined);
   const [recurring, setRecurring] = useState({});
-  const [valid, setValid] = useState(false);
+  const [titleValid, setTitleValid] = useState(false);
+  const [recurrenceValid, setRecurrenceValid] = useState(true);
   const [touched, setTouched] = useState(false);
 
   const { categories } = useContext(CategoryContext);
@@ -54,6 +55,21 @@ const TaskCreator = () => {
     [categories]
   );
 
+  const handleSetRecurring = (newRecurring) => {
+
+    const valid = newRecurring.mode !== RecurrenceMode.AFTER_DUE || !!due;
+    setRecurrenceValid(valid);
+    setRecurring({...newRecurring, invalid: !valid});
+  }
+
+  const handleSetDue = (newDue) => {
+
+    const valid = recurring.mode !== RecurrenceMode.AFTER_DUE || !!newDue;
+    setRecurrenceValid(valid);
+    setDue(newDue);
+    setRecurring({...recurring, invalid: !valid})
+  }
+
   const submit = () => {
     const newTask = {
       title,
@@ -64,7 +80,8 @@ const TaskCreator = () => {
       recurrenceFrequency: recurring.frequency,
     };
 
-    if (!valid) {
+    handleSetRecurring(recurring);
+    if (!titleValid || !recurrenceValid) {
       setTouched(true);
       return;
     }
@@ -74,7 +91,7 @@ const TaskCreator = () => {
     setTitle("");
     setCategory(undefined);
     setPriority(Priority.MEDIUM);
-    setValid(false);
+    setTitleValid(false);
     setTouched(false);
     setRecurring({});
   };
@@ -82,7 +99,7 @@ const TaskCreator = () => {
   const handleTitleChanged = (event) => {
     const currentTitle = event.target.value;
     setTitle(currentTitle);
-    setValid(!!currentTitle);
+    setTitleValid(!!currentTitle);
     setTouched(true);
 
     if (category === undefined) {
@@ -100,7 +117,7 @@ const TaskCreator = () => {
           <Input
             value={title}
             name={"title"}
-            validationError={!valid && touched}
+            validationError={!titleValid && touched}
             onChange={(event) => handleTitleChanged(event)}
           />
         </InputWrapper>
@@ -117,11 +134,11 @@ const TaskCreator = () => {
             category={category}
             setCategory={setCategory}
             due={due}
-            setDue={setDue}
+            setDue={handleSetDue}
             priority={priority}
             setPriority={setPriority}
             recurring={recurring}
-            setRecurring={setRecurring}
+            setRecurring={handleSetRecurring}
           />
         )}
       </Row>
