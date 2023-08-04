@@ -12,10 +12,10 @@ const StyledOrderDropdown = styled.div`
 `
 
 const StyledSortOrderContent = styled.div`
-  transition:visibility 0.5s linear,opacity 0.5s linear;
+  transition:visibility 0.2s linear,opacity 0.2s linear;
   display: block;
   position: absolute;
-  background-color: #FAFAFA;
+  background-color: #FFFFFF;
   border-style: solid;
   border-color: #BBBBBB;
   border-radius: 3px;
@@ -28,10 +28,10 @@ const StyledSortOrderContent = styled.div`
 `
 
 const DropdownEntry = styled.div`
-  transition: all 0.2s linear;
+  transition: all 0.1s linear;
   padding: 5px;
   ${({ selected }) => selected && `
-    background: #DDFFEE;
+    background: #E0F5FF;
   `}
 `;
 
