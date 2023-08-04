@@ -20,7 +20,9 @@ const StyledButton = styled(Button)`
 
 const RuleArea = styled.div`
   margin-top: 10px;
-  overflow-wrap: break-word;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
 `;
 
 const CategoryEditor = ({ category, resetEditedCategory }) => {

@@ -21,6 +21,13 @@ const CategoryName = styled.div`
   flex-grow: 1;
 `;
 
+const RuleContainer = styled.div`
+  margin-top: 5px;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+`;
+
 const CategoryListEntry = ({ name, id, rules, handleEdit, isEdited }) => {
   const { removeCategory } = useContext(CategoryContext);
 
@@ -35,7 +42,9 @@ const CategoryListEntry = ({ name, id, rules, handleEdit, isEdited }) => {
           </>
         )}
       </Row>
-      {rules && rules.map((rule) => <CategoryRule rule={rule} />)}
+      <RuleContainer>
+        {rules && rules.map((rule) => <CategoryRule rule={rule} />)}
+      </RuleContainer>
     </Card>
   );
 };

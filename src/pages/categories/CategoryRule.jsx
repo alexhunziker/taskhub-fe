@@ -3,10 +3,9 @@ import styled from 'styled-components';
 
 const StyledRule = styled.span`
   border: 1px solid;
-  border-color: #006666;
-  background-color: #DFFFF5;
-  color: #006666;
-  margin: 0px 3px;
+  border-color: #007799;
+  background-color: #E0F5FF;
+  color: #007799;
   padding: 0px 2px;
   border-radius: 3px;
   white-space:nowrap;

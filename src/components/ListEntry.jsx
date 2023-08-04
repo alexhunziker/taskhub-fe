@@ -11,7 +11,7 @@ const StyledEntry = styled.div`
   `}
 
   ${({ editMode }) => editMode && `
-    background: #DFFFF5;
+    background: #E0F5FF;
     padding-bottom: 0.6rem;
   `}
 

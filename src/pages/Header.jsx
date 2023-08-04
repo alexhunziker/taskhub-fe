@@ -26,7 +26,7 @@ const StyledHeader = styled.header`
   a:hover,
   a:active,
   a.active {
-    color: #00DDBB;
+    color: #E0F5FF;
   }
 `;
 

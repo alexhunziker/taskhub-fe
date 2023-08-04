@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledSelect = styled.select`
   width: 100%;
   height: 30px;
-  border: 2px solid #009999;
+  border: 2px solid #007799;
   border-radius: 3px;
   background-color: white;
 
@@ -13,7 +13,7 @@ const StyledSelect = styled.select`
   }
 
   :focus {
-    border: 2px solid #009999;
+    border: 2px solid #007799;
   }
 `;
 

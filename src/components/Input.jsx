@@ -4,11 +4,11 @@ import styled from "styled-components";
 const StyledInput = styled.input`
   width: 100%;
   height: 24px;
-  border: 2px solid #009999;
+  border: 2px solid #007799;
   border-radius: 3px;
 
   :focus {
-    border: 2px solid #009999;
+    border: 2px solid #007799;
   }
 
   ${({ validationError }) => validationError && `

@@ -15,6 +15,7 @@ import { useContext } from "react";
 import CategoryContext from "../../state/CategoryContext";
 
 const Row = styled.div`
+  margin-top: 7px;
   display: flex;
   gap: 10px;
   width: 100%;

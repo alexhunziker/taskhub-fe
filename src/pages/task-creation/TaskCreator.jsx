@@ -15,6 +15,7 @@ const TaskCreatorCard = styled(Card)`
   margin-left: 1rem;
   margin-right: 1rem;
   margin-bottom: 0px;
+  background-color: #E0F5FF;
 `;
 
 const Row = styled.div`
