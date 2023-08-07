@@ -15,7 +15,13 @@ const TaskCreatorCard = styled(Card)`
   margin-left: 1rem;
   margin-right: 1rem;
   margin-bottom: 0px;
-  background-color: #E0F5FF;
+  background-color: #e0f5ff;
+  max-height: 50px;
+  transition: max-height 0.5s linear;
+  height: fit-content;
+  overflow: hidden;
+
+  ${({ advanced }) => (advanced ? `max-height: 150px;` : `max-height: 50px;`)}
 `;
 
 const Row = styled.div`
@@ -25,6 +31,11 @@ const Row = styled.div`
 
 const StyledButton = styled(Button)`
   margin-top: 15px;
+`;
+
+const AdvancedRow = styled(Row)`
+  transition: opacity 0.5s linear;
+  ${({ advanced }) => (advanced ? `opacity: 1;` : `opacity: 0;`)}
 `;
 
 const TaskCreator = () => {
@@ -56,19 +67,17 @@ const TaskCreator = () => {
   );
 
   const handleSetRecurring = (newRecurring) => {
-
     const valid = newRecurring.mode !== RecurrenceMode.AFTER_DUE || !!due;
     setRecurrenceValid(valid);
-    setRecurring({...newRecurring, invalid: !valid});
-  }
+    setRecurring({ ...newRecurring, invalid: !valid });
+  };
 
   const handleSetDue = (newDue) => {
-
     const valid = recurring.mode !== RecurrenceMode.AFTER_DUE || !!newDue;
     setRecurrenceValid(valid);
     setDue(newDue);
-    setRecurring({...recurring, invalid: !valid})
-  }
+    setRecurring({ ...recurring, invalid: !valid });
+  };
 
   const submit = () => {
     const newTask = {
@@ -111,7 +120,7 @@ const TaskCreator = () => {
   };
 
   return (
-    <TaskCreatorCard>
+    <TaskCreatorCard advanced={advanced}>
       <Row>
         <InputWrapper description={"New Task"}>
           <Input
@@ -128,20 +137,18 @@ const TaskCreator = () => {
           Create
         </StyledButton>
       </Row>
-      <Row>
-        {advanced && (
-          <AdvancedTaskFields
-            category={category}
-            setCategory={setCategory}
-            due={due}
-            setDue={handleSetDue}
-            priority={priority}
-            setPriority={setPriority}
-            recurring={recurring}
-            setRecurring={handleSetRecurring}
-          />
-        )}
-      </Row>
+      <AdvancedRow advanced={advanced}>
+        <AdvancedTaskFields
+          category={category}
+          setCategory={setCategory}
+          due={due}
+          setDue={handleSetDue}
+          priority={priority}
+          setPriority={setPriority}
+          recurring={recurring}
+          setRecurring={handleSetRecurring}
+        />
+      </AdvancedRow>
     </TaskCreatorCard>
   );
 };

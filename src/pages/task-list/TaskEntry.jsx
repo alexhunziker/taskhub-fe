@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import styled from "styled-components";
 import EditIcon from '@mui/icons-material/Edit';
 import Button from "../../components/Button";
@@ -60,6 +60,7 @@ const formatDate = (date) => {
 
 const TaskEntry = ({ task }) => {
   const { toggleResolved } = useContext(TaskContext);
+  const [remove, setRemove] = useState(false);
 
   const currentDate = new Date();
   const overdue =
@@ -72,11 +73,16 @@ const TaskEntry = ({ task }) => {
 
   const formattedDate = task.done ? formatDate(task.closedOn) : formatDate(task.due)
 
+  const handleToggle = useCallback(() => {
+    setTimeout(() => toggleResolved(task.key), 500);
+    setRemove(true);
+  }, [setRemove, task.key, toggleResolved])
+
   return (
-    <ListEntry overdue={overdue} editMode={editMode} done={task.done}>
+    <ListEntry overdue={overdue} editMode={editMode} done={task.done} remove={remove}>
       {!editMode ? (
         <Row>
-          <Checkbox type="checkbox" onChange={() => toggleResolved(task.key)} checked={task.done} />
+          <Checkbox type="checkbox" onChange={() => handleToggle()} checked={task.done || remove} />
           <Importance priority={task.priority}>!</Importance>
           <StyledDescription done={task.done}>{task.title} {formattedDate && `(${formattedDate})`}</StyledDescription>
           <Button onClick={() => toggleEditMode()}>
