@@ -17,7 +17,7 @@ const TaskCreatorCard = styled(Card)`
   margin-bottom: 0px;
   background-color: #e0f5ff;
   max-height: 50px;
-  transition: max-height 0.5s linear;
+  transition: max-height 0.3s linear;
   height: fit-content;
   overflow: hidden;
 
@@ -34,7 +34,7 @@ const StyledButton = styled(Button)`
 `;
 
 const AdvancedRow = styled(Row)`
-  transition: opacity 0.5s linear;
+  transition: opacity 0.3s linear;
   ${({ advanced }) => (advanced ? `opacity: 1;` : `opacity: 0;`)}
 `;
 

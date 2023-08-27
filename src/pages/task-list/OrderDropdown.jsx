@@ -48,7 +48,7 @@ const OrderDropdown = ({setSortOrder, sortOrder}) => {
 
   return  (
     <StyledOrderDropdown>
-      <SortIcon onClick={() => setShowDropdown(true)} fontSize="small" />
+      <SortIcon onClick={() => setShowDropdown(!showDropdown)} fontSize="small" />
       <StyledSortOrderContent showDropdown={showDropdown}>
         {Object.values(SortOrder).map((order) => 
           <DropdownEntry key={order} selected={order === sortOrder} onClick={() => handleSetSortOrder(order)}>
