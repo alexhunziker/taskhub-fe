@@ -43,7 +43,7 @@ const CategoryListEntry = ({ name, id, rules, handleEdit, isEdited }) => {
         )}
       </Row>
       <RuleContainer>
-        {rules && rules.map((rule) => <CategoryRule rule={rule} />)}
+        {rules && rules.map((rule) => <CategoryRule rule={rule} key={rule} />)}
       </RuleContainer>
     </Card>
   );

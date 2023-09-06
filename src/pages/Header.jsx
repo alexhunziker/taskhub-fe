@@ -68,7 +68,7 @@ const Header = ({page}) => {
       {errorList.length > 0 && (
         <ErrorList>
           {errorList.map((error) => (
-            <li>{error}</li>
+            <li key={error}>{error}</li>
           ))}
         </ErrorList>
       )}

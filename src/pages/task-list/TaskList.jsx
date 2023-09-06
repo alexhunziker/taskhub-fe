@@ -45,7 +45,7 @@ const TaskList = () => {
       <CategroyContainer>
         {categoriesWithUnknown.map((taskCategory) => (
           <TaskContainer
-            key={taskCategory.key}
+            key={taskCategory.key || "undefined"}
             taskCategory={taskCategory.name}
             tasks={tasks.filter((task) => task.category === taskCategory.name || task.category === taskCategory.key)}
           />
