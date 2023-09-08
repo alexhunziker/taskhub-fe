@@ -21,7 +21,7 @@ const TaskCreatorCard = styled(Card)`
   height: fit-content;
   overflow: hidden;
 
-  ${({ advanced }) => (advanced ? `max-height: 150px;` : `max-height: 50px;`)}
+  ${({ advanced }) => (advanced ? `max-height: 200px;` : `max-height: 50px;`)}
 `;
 
 const Row = styled.div`

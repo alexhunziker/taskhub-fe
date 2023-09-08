@@ -10,6 +10,7 @@ import {
   RecurrenceModes,
   RecurrenceMode,
   Frequency,
+  DEFAULT_CATEGORY,
 } from "../../state/constants";
 import { useContext } from "react";
 import CategoryContext from "../../state/CategoryContext";
@@ -47,7 +48,7 @@ const AdvancedTaskFields = ({
     (cat1, cat2) => cat1.name.toUpperCase() > cat2.name.toUpperCase()
   );
   const categoriesWithUnknown = [
-    { key: undefined, name: "Uncategorized" },
+    { key: undefined, name: DEFAULT_CATEGORY },
     ...sortedCategories,
   ];
 
@@ -69,7 +70,7 @@ const AdvancedTaskFields = ({
       <InputWrapper description={"Category"}>
         <Dropdown
           entries={categoriesWithUnknown}
-          selectedKey={category}
+          selectedKey={category || DEFAULT_CATEGORY}
           onChange={(event) =>
             setCategory(event.target.options[event.target.selectedIndex].value)
           }

@@ -34,3 +34,5 @@ export const RecurrenceModes = [
   {name: "after complete", key: RecurrenceMode.AFTER_COMPLETE},
 ]
 
+export const DEFAULT_CATEGORY = "Uncategorized";
+
