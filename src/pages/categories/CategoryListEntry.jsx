@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import CategoryRule from "./CategoryRule";
@@ -28,7 +29,20 @@ const RuleContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const CategoryListEntry = ({ name, id, rules, handleEdit, isEdited }) => {
+const StyledHiddenIcon = styled(VisibilityOffIcon)`
+  color: #666666;
+  height: 17px;
+`;
+
+const CategoryListEntry = ({
+  name,
+  id,
+  rules,
+  handleEdit,
+  isEdited,
+  hidden,
+}) => {
+  
   const { removeCategory } = useContext(CategoryContext);
 
   return (
@@ -37,6 +51,7 @@ const CategoryListEntry = ({ name, id, rules, handleEdit, isEdited }) => {
         <CategoryName>{name}</CategoryName>
         {!isEdited && (
           <>
+            {hidden && <StyledHiddenIcon />}
             <Button onClick={() => handleEdit(id)}>Edit</Button>
             <Button onClick={() => removeCategory(id)}>Delete</Button>
           </>

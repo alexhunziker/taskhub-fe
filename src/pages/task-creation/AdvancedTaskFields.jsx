@@ -44,9 +44,9 @@ const AdvancedTaskFields = ({
   setRecurring,
 }) => {
   const { categories } = useContext(CategoryContext);
-  const sortedCategories = categories?.sort(
-    (cat1, cat2) => cat1.name.toUpperCase() > cat2.name.toUpperCase()
-  );
+  const sortedCategories = categories
+    ?.sort((cat1, cat2) => cat1.name.toUpperCase() > cat2.name.toUpperCase())
+    ?.filter((category) => !category.hidden);
   const categoriesWithUnknown = [
     { key: undefined, name: DEFAULT_CATEGORY },
     ...sortedCategories,
@@ -56,7 +56,9 @@ const AdvancedTaskFields = ({
 
   const [isRecurring, setIsRecurring] = useState(!!recurring.frequency);
   const toggleRecurring = () => {
-    const newRecurring = isRecurring ? {} : {mode: RecurrenceMode.AFTER_COMPLETE, frequency: Frequency.WEEKLY}
+    const newRecurring = isRecurring
+      ? {}
+      : { mode: RecurrenceMode.AFTER_COMPLETE, frequency: Frequency.WEEKLY };
     setRecurring(newRecurring);
     setIsRecurring(!isRecurring);
   };

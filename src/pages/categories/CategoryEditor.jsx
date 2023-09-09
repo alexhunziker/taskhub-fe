@@ -1,5 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import Input from "../../components/Input";
@@ -26,7 +28,8 @@ const RuleArea = styled.div`
 `;
 
 const CategoryEditor = ({ category, resetEditedCategory }) => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
+  const [hidden, setHidden] = useState(false);
   const [rules, setRules] = useState([]);
   const [currentRule, setCurrentRule] = useState("");
 
@@ -36,6 +39,7 @@ const CategoryEditor = ({ category, resetEditedCategory }) => {
   useEffect(() => {
     setName(category.name || "");
     setRules(category.rules || []);
+    setHidden(category.hidden || false);
   }, [category]);
 
   const handleAddRule = useCallback(() => {
@@ -65,7 +69,7 @@ const CategoryEditor = ({ category, resetEditedCategory }) => {
     [resetEditedCategory, saveCategory]
   );
 
-  const assembledCategory = { ...category, name, rules };
+  const assembledCategory = { ...category, name, rules, hidden };
 
   return (
     <Card>
@@ -76,6 +80,13 @@ const CategoryEditor = ({ category, resetEditedCategory }) => {
             onChange={(event) => setName(event.target.value)}
           />
         </InputWrapper>
+        <StyledButton onClick={() => setHidden(!hidden)} primary={hidden}>
+          {hidden ? (
+            <VisibilityOffIcon style={{ height: "17px" }} />
+          ) : (
+            <VisibilityIcon style={{ height: "17px" }} />
+          )}
+        </StyledButton>
         <StyledButton onClick={() => handleSave(assembledCategory)} primary>
           Save
         </StyledButton>
