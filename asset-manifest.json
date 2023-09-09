@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/taskhub-fe/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/taskhub-fe/static/js/main.08025b17.chunk.js",
-    "main.js.map": "/taskhub-fe/static/js/main.08025b17.chunk.js.map",
+    "main.js": "/taskhub-fe/static/js/main.8397ae09.chunk.js",
+    "main.js.map": "/taskhub-fe/static/js/main.8397ae09.chunk.js.map",
     "runtime-main.js": "/taskhub-fe/static/js/runtime-main.d645224e.js",
     "runtime-main.js.map": "/taskhub-fe/static/js/runtime-main.d645224e.js.map",
-    "static/css/2.7d46bf4c.chunk.css": "/taskhub-fe/static/css/2.7d46bf4c.chunk.css",
-    "static/js/2.4f1974bc.chunk.js": "/taskhub-fe/static/js/2.4f1974bc.chunk.js",
-    "static/js/2.4f1974bc.chunk.js.map": "/taskhub-fe/static/js/2.4f1974bc.chunk.js.map",
+    "static/css/2.3c877367.chunk.css": "/taskhub-fe/static/css/2.3c877367.chunk.css",
+    "static/js/2.4fdd29da.chunk.js": "/taskhub-fe/static/js/2.4fdd29da.chunk.js",
+    "static/js/2.4fdd29da.chunk.js.map": "/taskhub-fe/static/js/2.4fdd29da.chunk.js.map",
     "static/js/3.e4b987e6.chunk.js": "/taskhub-fe/static/js/3.e4b987e6.chunk.js",
     "static/js/3.e4b987e6.chunk.js.map": "/taskhub-fe/static/js/3.e4b987e6.chunk.js.map",
     "index.html": "/taskhub-fe/index.html",
-    "static/css/2.7d46bf4c.chunk.css.map": "/taskhub-fe/static/css/2.7d46bf4c.chunk.css.map",
+    "static/css/2.3c877367.chunk.css.map": "/taskhub-fe/static/css/2.3c877367.chunk.css.map",
     "static/css/main.2ae47eeb.chunk.css.map": "/taskhub-fe/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.4f1974bc.chunk.js.LICENSE.txt": "/taskhub-fe/static/js/2.4f1974bc.chunk.js.LICENSE.txt"
+    "static/js/2.4fdd29da.chunk.js.LICENSE.txt": "/taskhub-fe/static/js/2.4fdd29da.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d645224e.js",
-    "static/css/2.7d46bf4c.chunk.css",
-    "static/js/2.4f1974bc.chunk.js",
+    "static/css/2.3c877367.chunk.css",
+    "static/js/2.4fdd29da.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.08025b17.chunk.js"
+    "static/js/main.8397ae09.chunk.js"
   ]
 }
