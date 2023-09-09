@@ -15,10 +15,10 @@ const Shadow = styled.div`
 
 const StyledOverlay = styled.div`
   position: fixed;
-  top: 60px;
-  bottom: 60px;
-  right: 60px;
-  left: 60px;
+  top: 10%;
+  bottom: 10%;
+  right: 10%;
+  left: 10%;
   background-color: #FFFFFF;
   z-index: 3;
   border-radius: 8px;

@@ -8,8 +8,10 @@ export const SortOrder = {
 }
 
 const alphabetical = (a, b) => {
-    if (a.title > b.title) return 1;
-    if (a.title < b.title) return -1;
+    const aUpper = a.title?.toUpperCase();
+    const bUpper = b.title?.toUpperCase();
+    if (aUpper > bUpper) return 1;
+    if (aUpper < bUpper) return -1;
     return 0;
 }
 
