@@ -9,12 +9,6 @@ import CategoryContext from "../../state/CategoryContext";
 import { Routes } from "../routes";
 import DatabaseContext from "../../state/DatabaseContext";
 
-/* const mockCategories = [
-  {name: "Purchase", id:"id1", rules: ["buy*.", "purchase*."]},
-  {name: "Media", id:"id2", rules: ["show*.", "song*.", "music*.", "download*.", "netflix*.", "*.book"]},
-  {name: "Contact", id:"id3", rules: ["call*.", "contact*.", "write*."]},
-] */
-
 const StyledButton = styled(Button)`
   margin-top: 10px;
   text-decoration: none;

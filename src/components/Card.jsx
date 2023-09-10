@@ -8,8 +8,8 @@ const StyledCard = styled.div`
     margin-top: 10px;
 `;
 
-const Card = props => {
-  return <StyledCard style={props.style} className={props.className}>{props.children}</StyledCard>;
+const Card = ({style, className, innerRef, children, ...remaining}) => {
+  return <StyledCard style={style} className={className} ref={innerRef} {...remaining}>{children}</StyledCard>;
 };
 
 export default Card;

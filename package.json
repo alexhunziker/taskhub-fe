@@ -13,6 +13,7 @@
     "firebase": "^9.23.0",
     "firebaseui": "^6.0.2",
     "react": "^17.0.2",
+    "react-beautiful-dnd": "^13.1.1",
     "react-datepicker": "^4.16.0",
     "react-dom": "^17.0.2",
     "react-firebaseui": "^6.0.0",

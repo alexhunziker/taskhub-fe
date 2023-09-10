@@ -8,6 +8,7 @@ const CategoryContext = React.createContext({
   categories: [],
   saveCategory: (category) => {},
   removeCategory: (category) => {},
+  updateOrder: (categories) => {},
 });
 
 export const CategoryContextProvicer = (props) => {
@@ -42,10 +43,22 @@ export const CategoryContextProvicer = (props) => {
     deleteCategory(key, uid)
   }
 
+  const updateOrder = (reOrderedCategories) => {
+    
+    for (let i=0; i<reOrderedCategories.length; i++) {
+      const targetCategory = categories.find(c => c.key === reOrderedCategories[i].key);
+      if (targetCategory.order !== i) {
+        updateCategory({...targetCategory, order: i}, uid);
+        targetCategory.order = i;
+      }
+    }
+  }
+
   const value = {
     categories,
     saveCategory,
     removeCategory,
+    updateOrder,
   };
 
   return (
