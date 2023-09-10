@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/taskhub-fe/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/taskhub-fe/static/js/main.b6911b53.chunk.js",
-    "main.js.map": "/taskhub-fe/static/js/main.b6911b53.chunk.js.map",
+    "main.js": "/taskhub-fe/static/js/main.8a556c51.chunk.js",
+    "main.js.map": "/taskhub-fe/static/js/main.8a556c51.chunk.js.map",
     "runtime-main.js": "/taskhub-fe/static/js/runtime-main.15b17acc.js",
     "runtime-main.js.map": "/taskhub-fe/static/js/runtime-main.15b17acc.js.map",
     "static/css/2.3c877367.chunk.css": "/taskhub-fe/static/css/2.3c877367.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.3c877367.chunk.css",
     "static/js/2.529b410a.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.b6911b53.chunk.js"
+    "static/js/main.8a556c51.chunk.js"
   ]
 }
