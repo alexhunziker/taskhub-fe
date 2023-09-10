@@ -21,7 +21,7 @@ const CategroyContainer = styled.div`
 const TaskList = () => {
   const { categories } = useContext(CategoryContext);
   const sortedCategories = categories
-    ?.sort((cat1, cat2) => cat1.order > cat2.order)
+    ?.sort((cat1, cat2) => (cat1.order > cat2.order) ? 1 : -1)
     ?.filter((cat) => !cat.hidden);
   const categoriesWithUnknown = [{key: undefined, name: 'Uncategorized'}, ...sortedCategories]
 

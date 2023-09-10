@@ -8,7 +8,7 @@ const CategoryList = ({ categories, handleEdit, editedCategory }) => {
   const { updateOrder } = useContext(CategoryContext);
 
   const sortedCategories = categories?.sort(
-    (cat1, cat2) => cat1.order > cat2.order
+    (cat1, cat2) => (cat1.order > cat2.order) ? 1 : -1
   );
 
   const handleDragEnd = (result) => {
