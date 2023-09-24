@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import Header from '../Header';
 import Card from '../../components/Card';
 import DatabaseContext from '../../state/DatabaseContext';
@@ -7,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 import AuthenticationContext from '../../state/AuthenticationContext';
 import { getAuth, EmailAuthProvider } from 'firebase/auth';
 import { Routes } from '../routes';
+import AuthenticationBox from './AuthenticationBox';
 
 const Login = () => {
 
@@ -28,7 +28,7 @@ const Login = () => {
     return (
         <Card>
             <Header page={"Login"} />
-            {ready && <StyledFirebaseAuth uiConfig={loginConfig} firebaseAuth={getAuth()} />}
+            {ready && <AuthenticationBox uiConfig={loginConfig} firebaseAuth={getAuth()} />}
         </Card>
     );
 }
