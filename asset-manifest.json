@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/taskhub-fe/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/taskhub-fe/static/js/main.8a556c51.chunk.js",
-    "main.js.map": "/taskhub-fe/static/js/main.8a556c51.chunk.js.map",
-    "runtime-main.js": "/taskhub-fe/static/js/runtime-main.15b17acc.js",
-    "runtime-main.js.map": "/taskhub-fe/static/js/runtime-main.15b17acc.js.map",
-    "static/css/2.3c877367.chunk.css": "/taskhub-fe/static/css/2.3c877367.chunk.css",
-    "static/js/2.529b410a.chunk.js": "/taskhub-fe/static/js/2.529b410a.chunk.js",
-    "static/js/2.529b410a.chunk.js.map": "/taskhub-fe/static/js/2.529b410a.chunk.js.map",
-    "static/js/3.33724f06.chunk.js": "/taskhub-fe/static/js/3.33724f06.chunk.js",
-    "static/js/3.33724f06.chunk.js.map": "/taskhub-fe/static/js/3.33724f06.chunk.js.map",
+    "main.js": "/taskhub-fe/static/js/main.4b150fc1.chunk.js",
+    "main.js.map": "/taskhub-fe/static/js/main.4b150fc1.chunk.js.map",
+    "runtime-main.js": "/taskhub-fe/static/js/runtime-main.e3a8282d.js",
+    "runtime-main.js.map": "/taskhub-fe/static/js/runtime-main.e3a8282d.js.map",
+    "static/css/2.ec52b754.chunk.css": "/taskhub-fe/static/css/2.ec52b754.chunk.css",
+    "static/js/2.3e604df5.chunk.js": "/taskhub-fe/static/js/2.3e604df5.chunk.js",
+    "static/js/2.3e604df5.chunk.js.map": "/taskhub-fe/static/js/2.3e604df5.chunk.js.map",
+    "static/js/3.f8d89f09.chunk.js": "/taskhub-fe/static/js/3.f8d89f09.chunk.js",
+    "static/js/3.f8d89f09.chunk.js.map": "/taskhub-fe/static/js/3.f8d89f09.chunk.js.map",
     "index.html": "/taskhub-fe/index.html",
-    "static/css/2.3c877367.chunk.css.map": "/taskhub-fe/static/css/2.3c877367.chunk.css.map",
+    "static/css/2.ec52b754.chunk.css.map": "/taskhub-fe/static/css/2.ec52b754.chunk.css.map",
     "static/css/main.2ae47eeb.chunk.css.map": "/taskhub-fe/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.529b410a.chunk.js.LICENSE.txt": "/taskhub-fe/static/js/2.529b410a.chunk.js.LICENSE.txt"
+    "static/js/2.3e604df5.chunk.js.LICENSE.txt": "/taskhub-fe/static/js/2.3e604df5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.15b17acc.js",
-    "static/css/2.3c877367.chunk.css",
-    "static/js/2.529b410a.chunk.js",
+    "static/js/runtime-main.e3a8282d.js",
+    "static/css/2.ec52b754.chunk.css",
+    "static/js/2.3e604df5.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.8a556c51.chunk.js"
+    "static/js/main.4b150fc1.chunk.js"
   ]
 }
