@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import DatabaseContext from "./DatabaseContext";
 import { useContext } from "react";
@@ -19,9 +19,15 @@ export const AuthenticationContextPorvider = ({ children }) => {
   const { ready } = useContext(DatabaseContext);
   const { storeUser } = useUserActions();
 
-  const auth = ready && getAuth();
-  ready &&
-    onAuthStateChanged(auth, (user) => {
+  // subscribe to authState changes once firebase is ready
+  useEffect(() => {
+    if (!ready) {
+      return undefined;
+    }
+
+    const auth = getAuth();
+
+    return onAuthStateChanged(auth, user => {
       if (user) {
         if (uid !== user.uid) {
           storeUser(user.uid, user.displayName, user.email);
@@ -34,7 +40,8 @@ export const AuthenticationContextPorvider = ({ children }) => {
         setDisplayName("");
         setEmail("");
       }
-    });
+    })
+  }, [ready]) // eslint-disable-line
 
   const isLoggedIn = () => {
     return !!uid;

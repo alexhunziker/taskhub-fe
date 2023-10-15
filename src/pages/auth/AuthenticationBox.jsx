@@ -1,67 +1,38 @@
-import React from 'react';
+import React, {useEffect} from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import * as firebaseui from "firebaseui";
 
-const ELEMENT_ID = 'firebaseui_container';
+import "firebaseui/dist/firebaseui.css";
 
-let firebaseUiDeletion = Promise.resolve();
+const ELEMENT_ID = "firebaseui_container";
 
-export default class AuthenticationBox extends React.Component {
-  constructor(props) {
-    super(props);
+const AuthenticationBox = ({uiConfig, firebaseAuth, className}) => {
+  useEffect(() => {
+    let userSignedIn = false;
 
-    this.uiConfig = props.uiConfig;
-    this.firebaseAuth = props.firebaseAuth;
-    this.className = props.className;
-    this.uiCallback = props.uiCallback;
-    this.unregisterAuthObserver = () => {};
-  }
+    // Get or Create a firebaseUI instance.
+    const firebaseUiWidget =
+      firebaseui.auth.AuthUI.getInstance() ||
+      new firebaseui.auth.AuthUI(firebaseAuth);
 
-  componentDidMount() {
-    require('firebaseui/dist/firebaseui.css');
+    if (uiConfig.signInFlow === "popup") firebaseUiWidget.reset();
 
-    // Firebase UI only works on the Client. So we're loading the package in `componentDidMount`
-    // So that this works when doing server-side rendering.
-    const firebaseui = require('firebaseui');
-
-    // Wait in case the firebase UI instance is being deleted.
-    // This can happen if you unmount/remount the element quickly.
-    return firebaseUiDeletion.then(() => {
-      // Get or Create a firebaseUI instance.
-      this.firebaseUiWidget = firebaseui.auth.AuthUI.getInstance()
-           || new firebaseui.auth.AuthUI(this.firebaseAuth);
-      if (this.uiConfig.signInFlow === 'popup') {
-        this.firebaseUiWidget.reset();
-      }
-
-      // We track the auth state to reset firebaseUi if the user signs out.
-      this.userSignedIn = false;
-      this.unregisterAuthObserver = this.firebaseAuth.onAuthStateChanged((user) => {
-        if (!user && this.userSignedIn) {
-          this.firebaseUiWidget.reset();
-        }
-        this.userSignedIn = !!user;
-      });
-
-      // Trigger the callback if any was set.
-      if (this.uiCallback) {
-        this.uiCallback(this.firebaseUiWidget);
-      }
-
-      // Render the firebaseUi Widget.
-      this.firebaseUiWidget.start('#' + ELEMENT_ID, this.uiConfig);
+    // We track the auth state to reset firebaseUi if the user signs out.
+    const unregisterAuthObserver = onAuthStateChanged(firebaseAuth, (user) => {
+      if (!user && userSignedIn) firebaseUiWidget.reset();
+      userSignedIn = !!user;
     });
-  }
 
-  componentWillUnmount() {
-    firebaseUiDeletion = firebaseUiDeletion.then(() => {
-      this.unregisterAuthObserver();
-      return this.firebaseUiWidget.delete();
-    });
-    return firebaseUiDeletion;
-  }
+    // Render the firebaseUi Widget.
+    firebaseUiWidget.start("#" + ELEMENT_ID, uiConfig);
 
-  render() {
-    return (
-      <div className={this.className} id={ELEMENT_ID}/>
-    );
-  }
+    return () => {
+      unregisterAuthObserver();
+      firebaseUiWidget.reset();
+    };
+  }, [uiConfig, firebaseAuth]);
+
+  return <div className={className} id={ELEMENT_ID} />;
 }
+
+export default AuthenticationBox

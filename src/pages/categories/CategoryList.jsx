@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CategoryListEntry from "./CategoryListEntry";
 import { useContext } from "react";
@@ -6,6 +6,8 @@ import CategoryContext from "../../state/CategoryContext";
 
 const CategoryList = ({ categories, handleEdit, editedCategory }) => {
   const { updateOrder } = useContext(CategoryContext);
+
+  const [mounted, setMounted] = useState(false);
 
   const sortedCategories = categories?.sort(
     (cat1, cat2) => (cat1.order > cat2.order) ? 1 : -1
@@ -21,9 +23,12 @@ const CategoryList = ({ categories, handleEdit, editedCategory }) => {
     updateOrder(reorderedCategories);
   };
 
+  // Hack for react 18, to make sure the Component is mounted
+  useEffect(() => setMounted(true), []);
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="droppable">
+      {mounted && <Droppable droppableId="droppable">
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {sortedCategories.map(({ name, key, rules, hidden }, index) => (
@@ -41,7 +46,7 @@ const CategoryList = ({ categories, handleEdit, editedCategory }) => {
             {provided.placeholder}
           </div>
         )}
-      </Droppable>
+      </Droppable>}
     </DragDropContext>
   );
 };

@@ -31,8 +31,10 @@ const TaskList = () => {
 
   const { isLoggedIn, uid } = useContext(AuthenticationContext);
 
-  // eslint-disable-next-line
-  useEffect(() => ready && listenToTaskList(setTasks, uid), [ready, uid]);
+  // no exhaustive dependency array since it would lead to infinite loop.
+  useEffect(() => {
+    ready && listenToTaskList(setTasks, uid)
+  }, [ready, uid]); // eslint-disable-line
 
   if (!isLoggedIn()) {
     return <Navigate to="taskhub-fe/login" replace />;

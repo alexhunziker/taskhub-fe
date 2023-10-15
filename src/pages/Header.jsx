@@ -52,14 +52,26 @@ const StyledLogout = styled(LogoutIcon)`
 `
 
 const Header = ({ page }) => {
-  const { successIndicator, errorList, addError } = useContext(DatabaseContext);
+  const { successIndicator, errorList, addError, ready } = useContext(DatabaseContext);
   const { displayName, isLoggedIn } = useContext(AuthenticationContext);
 
-  const auth = getAuth();
+  const auth = ready && getAuth();
 
   const handleLogout = useCallback(() => {
     signOut(auth).catch((e) => addError("Sign out failed: ", e));
   }, [auth, addError]);
+
+  if (!ready) {
+    return <StyledHeader>
+      <PageTitle>
+          <a href="/tasks">
+            📝 TaskHub {">>"} Loading...
+          </a>
+        </PageTitle>
+    </StyledHeader>
+  }
+
+  
 
   return (
     <>
