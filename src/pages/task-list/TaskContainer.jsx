@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from "../../components/Card";
 import TaskEntry from "./TaskEntry";
 import OrderDropdown from "./OrderDropdown";
 import { SortOrder, SortOrderFunctions, compareClosedOn } from "./sortOrder";
+import { Droppable } from "react-beautiful-dnd";
 
 const ContainerTitle = styled.h2`
   font-size: 14pt;
@@ -19,9 +20,10 @@ const CategoryCard = styled(Card)`
   flex-grow: 1;
 `
 
-const TaskContainer = ({ taskCategory, tasks }) => {
+const TaskContainer = ({ taskCategory, tasks, categoryId }) => {
   const [sortOrder, setSortOrder] = useState(SortOrder.DUE_UNKNOWN_LAST);
   const [showClosed, setShowClosed] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const sortOrderFunction = SortOrderFunctions[sortOrder];
 
   const openTasks = tasks
@@ -35,24 +37,34 @@ const TaskContainer = ({ taskCategory, tasks }) => {
     ? "- Hide closed tasks"
     : "+ Show closed tasks";
 
+  // Hack for react 18, to make sure the Component is mounted
+  useEffect(() => setMounted(true), []);
+
   return (
     <CategoryCard>
-      <ContainerTitle>
-        <OrderDropdown setSortOrder={setSortOrder} sortOrder={sortOrder} />{" "}
-        {taskCategory || "Uncategorized"}
-      </ContainerTitle>
-      {openTasks.length > 0
-        ? openTasks.map((task) => <TaskEntry task={task} key={task.key} />)
-        : "Yay, no tasks"}
-      {closedTasks.length > 0 && (
-        <>
-          <ClosedTaskToggle onClick={() => setShowClosed(!showClosed)}>
-            {toggleClosedText}
-          </ClosedTaskToggle>
-          {showClosed &&
-            closedTasks.map((task) => <TaskEntry task={task} key={task.key} />)}
-        </>
-      )}
+      {mounted && <Droppable droppableId={categoryId}>
+        {(provided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            <ContainerTitle>
+              <OrderDropdown setSortOrder={setSortOrder} sortOrder={sortOrder} />{" "}
+              {taskCategory || "Uncategorized"}
+            </ContainerTitle>
+            {openTasks.length > 0
+              ? openTasks.map((task, index) => <TaskEntry task={task} key={task.key} index={index} />)
+              : "Yay, no tasks"}
+            {closedTasks.length > 0 && (
+              <>
+                <ClosedTaskToggle onClick={() => setShowClosed(!showClosed)}>
+                  {toggleClosedText}
+                </ClosedTaskToggle>
+                {showClosed &&
+                  closedTasks.map((task) => <TaskEntry task={task} key={task.key} />)}
+              </>
+            )}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>}
     </CategoryCard>
   );
 };

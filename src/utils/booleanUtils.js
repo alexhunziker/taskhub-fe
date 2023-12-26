@@ -1,0 +1,1 @@
+export const convertBoolean = (boolean) => boolean ? 1 : undefined;

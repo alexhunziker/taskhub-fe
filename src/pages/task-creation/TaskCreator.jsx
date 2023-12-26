@@ -10,6 +10,7 @@ import AdvancedTaskFields from "./AdvancedTaskFields";
 import { Priority, RecurrenceMode } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
 import CategoryContext from "../../state/CategoryContext";
+import { convertBoolean } from "../../utils/booleanUtils";
 
 const TaskCreatorCard = styled(Card)`
   margin-left: 1rem;
@@ -134,7 +135,7 @@ const TaskCreator = () => {
   };
 
   return (
-    <TaskCreatorCard advanced={advanced}>
+    <TaskCreatorCard advanced={convertBoolean(advanced)}>
       <Row>
         <InputWrapper description={"New Task"}>
           <Input
@@ -152,7 +153,7 @@ const TaskCreator = () => {
           Create
         </StyledButton>
       </Row>
-      <AdvancedRow advanced={advanced}>
+      <AdvancedRow advanced={convertBoolean(advanced)}>
         <AdvancedTaskFields
           category={category}
           setCategory={setCategory}

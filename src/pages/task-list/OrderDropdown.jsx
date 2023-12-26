@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import styled from "styled-components"
 import { SortOrder } from "./sortOrder";
 import SortIcon from '@mui/icons-material/Sort';
+import { convertBoolean } from "../../utils/booleanUtils";
 
 const StyledOrderDropdown = styled.div`
   display: inline-block;
@@ -49,7 +50,7 @@ const OrderDropdown = ({setSortOrder, sortOrder}) => {
   return  (
     <StyledOrderDropdown>
       <SortIcon onClick={() => setShowDropdown(!showDropdown)} fontSize="small" />
-      <StyledSortOrderContent showDropdown={showDropdown}>
+      <StyledSortOrderContent showDropdown={convertBoolean(showDropdown)}>
         {Object.values(SortOrder).map((order) => 
           <DropdownEntry key={order} selected={order === sortOrder} onClick={() => handleSetSortOrder(order)}>
             {order}

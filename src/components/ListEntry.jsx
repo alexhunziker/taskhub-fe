@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import { convertBoolean } from '../utils/booleanUtils';
 
 const StyledEntry = styled.div`
   padding: 0.3rem;
@@ -35,8 +36,13 @@ const StyledEntry = styled.div`
   `}
 `;
 
-const ListEntry = ({overdue, editMode, children, done, remove}) => {
-  return <StyledEntry overdue={overdue} editMode={editMode} done={done} remove={remove}>{children}</StyledEntry>;
+const ListEntry = ({ overdue, editMode, children, done, remove }) => {
+  return <StyledEntry
+    overdue={convertBoolean(overdue)}
+    editMode={convertBoolean(editMode)}
+    done={convertBoolean(done)}
+    remove={convertBoolean(remove)}
+  >{children}</StyledEntry>;
 };
 
 export default ListEntry;

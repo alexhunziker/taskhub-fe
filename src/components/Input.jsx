@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { convertBoolean } from "../utils/booleanUtils";
 
 const StyledInput = styled.input`
   width: 100%;
@@ -18,7 +19,7 @@ const StyledInput = styled.input`
 `
 
 const Input = ({onChange, value, validationError, ...other}) => {
-  return <StyledInput onChange={onChange} value={value} validationError={validationError} {...other}/>
+  return <StyledInput onChange={onChange} value={value} validationError={convertBoolean(validationError)} {...other}/>
 }
 
 export default Input
