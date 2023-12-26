@@ -59,7 +59,7 @@ const formatDate = (date) => {
   }
 }
 
-const TaskEntry = ({ task, index }) => {
+const TaskEntry = ({ task, index, hide }) => {
   const { toggleResolved } = useContext(TaskContext);
   const [remove, setRemove] = useState(false);
 
@@ -81,7 +81,7 @@ const TaskEntry = ({ task, index }) => {
 
   return (
     <Draggable key={task.key} draggableId={task.key} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
@@ -92,6 +92,7 @@ const TaskEntry = ({ task, index }) => {
             editMode={editMode}
             done={task.done}
             remove={remove}
+            hide={hide && !snapshot.isDragging}
           >
             {!editMode ? (
               <Row>

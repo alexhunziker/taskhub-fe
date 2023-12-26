@@ -7,6 +7,7 @@ const StyledEntry = styled.div`
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin-top: 10px;
   opacity: 1;
+  background: #FFFFFF;
 
   transform: translateY(0%);
   transition: opacity 0.5s, transform 0.5s ease-in;
@@ -34,14 +35,19 @@ const StyledEntry = styled.div`
   ${({ remove, done }) => remove && done && `
     transform: translateY(-100%);
   `}
+
+  ${({ hide }) => hide && `
+    opacity: 0;
+  `}
 `;
 
-const ListEntry = ({ overdue, editMode, children, done, remove }) => {
+const ListEntry = ({ overdue, editMode, children, done, remove, hide }) => {
   return <StyledEntry
     overdue={convertBoolean(overdue)}
     editMode={convertBoolean(editMode)}
     done={convertBoolean(done)}
     remove={convertBoolean(remove)}
+    hide={convertBoolean(hide)}
   >{children}</StyledEntry>;
 };
 
