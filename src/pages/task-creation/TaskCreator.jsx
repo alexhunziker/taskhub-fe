@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -37,6 +37,8 @@ const AdvancedRow = styled(Row)`
   transition: opacity 0.3s linear;
   ${({ advanced }) => (advanced ? `opacity: 1;` : `opacity: 0;`)}
 `;
+
+const TASK_CREATION_INPUT_ID = "tcrtin";
 
 const TaskCreator = () => {
   const [advanced, setAdvanced] = useState(() => false);
@@ -105,6 +107,18 @@ const TaskCreator = () => {
     setRecurring({});
   };
 
+  useEffect(() => {
+    const enterListener = event => {
+      if (document.activeElement.id === TASK_CREATION_INPUT_ID && (event.code === "Enter" || event.code === "NumpadEnter")) {
+        event.preventDefault();
+        submit();
+      }
+    }
+
+    document.addEventListener("keydown", enterListener);
+    return () => document.removeEventListener("keydown", enterListener);
+  }, [submit])
+
   const handleTitleChanged = (event) => {
     const currentTitle = event.target.value;
     setTitle(currentTitle);
@@ -124,6 +138,7 @@ const TaskCreator = () => {
       <Row>
         <InputWrapper description={"New Task"}>
           <Input
+            id={TASK_CREATION_INPUT_ID}
             value={title}
             name={"title"}
             validationError={!titleValid && touched}

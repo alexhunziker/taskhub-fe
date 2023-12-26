@@ -17,8 +17,8 @@ const StyledInput = styled.input`
   `}
 `
 
-const Input = ({onChange, value, validationError}) => {
-  return <StyledInput onChange={onChange} value={value} validationError={validationError}/>
+const Input = ({onChange, value, validationError, ...other}) => {
+  return <StyledInput onChange={onChange} value={value} validationError={validationError} {...other}/>
 }
 
 export default Input
