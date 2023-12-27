@@ -7,6 +7,7 @@ import ListEntry from "../../components/ListEntry";
 import EditTask from "./EditTask";
 import { Priority } from "../../state/constants";
 import TaskContext from "../../state/TaskContext";
+import TaskNotes from "./TaskNotesButton";
 
 const Row = styled.div`
   display: flex;
@@ -99,6 +100,7 @@ const TaskEntry = ({ task, index, hide }) => {
                 <Checkbox type="checkbox" onChange={() => handleToggle()} checked={task.done || remove} />
                 <Importance priority={task.priority}>!</Importance>
                 <StyledDescription done={task.done}>{task.title} {formattedDate && `(${formattedDate})`}</StyledDescription>
+                <TaskNotes task={task} />
                 <Button onClick={() => toggleEditMode()}>
                   <EditIcon fontSize="small" />
                 </Button>

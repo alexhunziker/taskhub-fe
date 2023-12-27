@@ -17,6 +17,7 @@ export const TaskContextProvider = (props) => {
   const { uid } = useContext(AuthenticationContext);
   const [tasks, setTasks] = useState([]);
   const { updateTask, removeTask: deleteTask } = useTaskActions();
+  const [overlayTask, setOverlayTask] = useState(undefined);
 
   const addTask = (newTask) => {
     const newTaskWithKey = { ...newTask, key: uuidv4() };
@@ -88,6 +89,8 @@ export const TaskContextProvider = (props) => {
     toggleResolved,
     modifyTask,
     unassignAllTasksFromCategory,
+    overlayTask,
+    setOverlayTask,
   };
 
   return (

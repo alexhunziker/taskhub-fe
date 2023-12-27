@@ -10,6 +10,7 @@ import AuthenticationContext from "../../state/AuthenticationContext";
 import { Navigate } from "react-router-dom";
 import CategoryContext from "../../state/CategoryContext";
 import { DragDropContext } from "react-beautiful-dnd";
+import TaskNotesOverlay from "./task-notes/TaskNotesOverlay";
 
 const CategroyContainer = styled.div`
   display: flex;
@@ -72,6 +73,7 @@ const TaskList = () => {
           ))}
         </DragDropContext>
       </CategroyContainer>
+      <TaskNotesOverlay />
     </>
   );
 };
